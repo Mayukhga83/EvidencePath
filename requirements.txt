@@ -1,0 +1,9 @@
+streamlit>=1.55,<2
+openai>=2.0,<3
+supabase>=2.15,<3
+pydantic>=2.10,<3
+pandas>=2.2,<3
+plotly>=6.0,<7
+networkx>=3.4,<4
+python-dotenv>=1.0,<2
+tenacity>=9.0,<10
