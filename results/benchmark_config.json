@@ -1,0 +1,6 @@
+{
+  "n": 150,
+  "seed": 17,
+  "retrieval": "hybrid",
+  "note": "Synthetic Boolean policy cases. These are NOT measured legal compliance capabilities."
+}

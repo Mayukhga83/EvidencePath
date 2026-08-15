@@ -1,612 +1,458 @@
+"""EvidencePath v0.3.0 · Streamlit interface. Start: streamlit run app.py.
+
+No visitor-entered API credentials. Uploaded files remain in the current
+Streamlit session (RAM); only selected passage text is sent to OpenAI in live
+mode. Do not upload data you lack permission to process.
+"""
 from __future__ import annotations
-
-import re
-from uuid import uuid4
-
+import hashlib
+from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-from graphmind.config import settings
-from graphmind.models import MemoryCandidate
-from graphmind.orchestrator import (
-    apply_review_candidate,
-    heuristic_intent,
-    retrieve_agent,
-    run_turn,
+from evidencepath import __version__
+from evidencepath.cases import curated_cases
+from evidencepath.document_lab import (
+    start_session, uploaded_segments, next_action, inspect_segment,
+    add_clarification, ledger_rows, ranked_segments, remaining_passages, manual_review_action,
 )
-from graphmind.scenarios import SCENARIOS
-from graphmind.storage import get_store
-from graphmind.ui import (
-    architecture_pipeline,
-    creator_card,
-    compact_memory_update,
-    decision_cards,
-    feature_card,
-    graph_delta_panel,
-    graph_figure,
-    hero,
-    inject_css,
-    memory_cards,
-    memory_table,
-    scenario_header,
-    trace_pipeline,
+from evidencepath.logic import decision_snapshot
+from evidencepath.graph import to_dot
+from evidencepath.counterfactual import alternatives
+from evidencepath.reporting import report_json, report_markdown
+from evidencepath.runtime import (
+    server_key, reserve_live_call, PER_SESSION_CALL_LIMIT,
+    MAX_AGENT_STEPS, MODEL_DEFAULT,
+)
+from evidencepath.stress_benchmark import run_stress_benchmark
+from evidencepath.benchmark import run_benchmark
+from evidencepath.ui import (
+    APP_CSS, render_header, render_author_card, render_footer,
+    render_policy, render_summary, render_section,
 )
 
-st.set_page_config(
-    page_title="GraphMind Studio",
-    page_icon="◈",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
-inject_css()
+st.set_page_config(page_title="EvidencePath | Evidence-Aware AI Research Workbench", page_icon="🧭", layout="wide", initial_sidebar_state="expanded")
+st.markdown(APP_CSS,unsafe_allow_html=True)
 
+CASES=curated_cases()
+CASE_BY_ID={c.id:c for c in CASES}
+KEY=server_key(st.secrets)
+KEY_READY=bool(KEY) and not KEY.startswith("REPLACE_")
 
-@st.cache_resource
-def store_resource():
-    return get_store()
-
-
-def slug(value: str) -> str:
-    return re.sub(r"[^a-z0-9]+", "_", value.lower()).strip("_")
-
-
-def workspace_for(scenario_name: str, visitor_id: str) -> str:
-    seed_version = SCENARIOS[scenario_name].get("seed_version", "v1")
-    return f"{slug(scenario_name)}_{seed_version}_{visitor_id[:12]}"
-
-
-def activate_scenario(scenario_name: str, reset: bool = False) -> None:
-    workspace_id = workspace_for(scenario_name, st.session_state.visitor_id)
-    store.clone_scenario(scenario_name, workspace_id, reset=reset)
-    st.session_state.workspace_id = workspace_id
-    st.session_state.latest_trace = None
-    st.session_state.resolved_proposals = {}
-
-
-def open_graph() -> None:
-    st.session_state.nav_page = "Graph Explorer"
-
-
-def relationship_time(memory: dict) -> str:
-    """Return an ISO timestamp string suitable for newest-first sorting."""
-    return str(memory.get("last_seen_at") or memory.get("first_seen_at") or "")
-
-
-def sort_relationships_newest_first(rows: list[dict]) -> list[dict]:
-    return sorted(
-        rows,
-        key=lambda memory: (
-            relationship_time(memory),
-            str(memory.get("first_seen_at") or ""),
-            str(memory.get("id") or ""),
-        ),
-        reverse=True,
-    )
-
-
-def recent_update_memories(
-    all_memories: list[dict],
-    latest_trace: dict | None,
-    fallback_limit: int = 10,
-) -> list[dict]:
-    """Return relationships changed by the latest turn, or the newest stored relationships."""
-    delta = latest_trace.get("graph_delta", {}) if latest_trace else {}
-    changed_ids = list(dict.fromkeys(delta.get("added_ids", []) + delta.get("updated_ids", [])))
-    if changed_ids:
-        changed = [memory for memory in all_memories if memory.get("id") in set(changed_ids)]
-        return sort_relationships_newest_first(changed)
-    return sort_relationships_newest_first(all_memories)[:fallback_limit]
-
-
-def focused_graph_memories(
-    all_memories: list[dict],
-    selected_entity: str,
-    include_second_hop: bool = False,
-) -> list[dict]:
-    """Return a readable one-hop or two-hop neighborhood around an entity."""
-    one_hop = [
-        memory
-        for memory in all_memories
-        if memory.get("subject") == selected_entity or memory.get("object") == selected_entity
-    ]
-    if not include_second_hop:
-        return one_hop
-
-    neighborhood = {selected_entity}
-    for memory in one_hop:
-        neighborhood.add(memory.get("subject"))
-        neighborhood.add(memory.get("object"))
-    return [
-        memory
-        for memory in all_memories
-        if memory.get("subject") in neighborhood or memory.get("object") in neighborhood
-    ]
-
-
-store = store_resource()
-
-if "visitor_id" not in st.session_state:
-    st.session_state.visitor_id = uuid4().hex
-if "scenario" not in st.session_state:
-    st.session_state.scenario = "AI Researcher"
-if "memory_mode" not in st.session_state:
-    st.session_state.memory_mode = "Automatic"
-if "workspace_id" not in st.session_state:
-    activate_scenario(st.session_state.scenario)
-if "latest_trace" not in st.session_state:
-    st.session_state.latest_trace = None
-if "resolved_proposals" not in st.session_state:
-    st.session_state.resolved_proposals = {}
-if "nav_page" not in st.session_state:
-    st.session_state.nav_page = "Overview"
-
+# ---------------------------------------------------------------------
+# Global workspace controls
+# ---------------------------------------------------------------------
 with st.sidebar:
-    st.markdown("## ◈ GraphMind")
-    st.caption("Visual agent memory")
-
-    scenario = st.selectbox(
-        "Scenario workspace",
-        list(SCENARIOS),
-        index=list(SCENARIOS).index(st.session_state.scenario),
-    )
-    if scenario != st.session_state.scenario:
-        st.session_state.scenario = scenario
-        activate_scenario(scenario)
-        st.rerun()
-
-    memory_mode = st.selectbox(
-        "Memory policy",
-        ["Automatic", "Review", "Observe only"],
-        index=["Automatic", "Review", "Observe only"].index(st.session_state.memory_mode),
-        help=(
-            "Automatic writes safe high-confidence memories. Review lets you edit and approve proposals. "
-            "Observe only shows what the system would remember without changing the graph."
-        ),
-    )
-    st.session_state.memory_mode = memory_mode
-
-    st.radio(
-        "Navigation",
-        ["Overview", "Memory Lab", "Graph Explorer", "Agent Trace", "Evaluation", "Memory Manager"],
-        key="nav_page",
-        label_visibility="collapsed",
-    )
-
+    st.markdown("### EvidencePath")
+    st.caption(f"v{__version__} · Evidence-aware AI research demo")
     st.divider()
-    if st.button("Reset this workspace", use_container_width=True):
-        activate_scenario(st.session_state.scenario, reset=True)
-        st.rerun()
-    if st.button("Create a fresh isolated copy", use_container_width=True):
-        st.session_state.visitor_id = uuid4().hex
-        activate_scenario(st.session_state.scenario)
-        st.rerun()
+    selected=st.selectbox("Choose an assessment case",list(CASE_BY_ID),format_func=lambda k:CASE_BY_ID[k].title,key="v3_case")
+    source=st.radio("Where should evidence come from?",["Sample documents","My documents"],key="v3_source")
+    extract_options=["Live OpenAI","Offline text matching"] if KEY_READY else ["Offline text matching"]
+    extraction=st.selectbox("Claim extraction method",extract_options,key="v3_extractor",help="Extract candidate facts from document passages. OpenAI uses structured outputs with an exact-quote check; the offline option uses limited text patterns.")
+    rank_label=st.selectbox("Retrieval method",["Hybrid · BM25 + LSA (offline)","Keyword · BM25 (offline)","Neural hybrid · embeddings (optional)","Neural hybrid + reranker (optional)"],key="v3_retrieval",help="Retrieval ranks document passages by relevance. The default combines BM25 keywords with LSA semantic similarity. Neural options require additional packages.")
+    rank_mode={"Hybrid · BM25 + LSA (offline)":"hybrid","Keyword · BM25 (offline)":"bm25","Neural hybrid · embeddings (optional)":"neural","Neural hybrid + reranker (optional)":"neural-rerank"}[rank_label]
+    st.divider()
+    if KEY_READY:
+        st.success("OpenAI claim extraction is available")
+    else:
+        st.info("Offline extraction is ready. Live OpenAI analysis is not enabled on this server; you can still explore every sample case.")
+    st.caption("BM25 + LSA works offline. Neural embeddings and reranking require optional models and may download weights on first use.")
+    st.caption(f"Live AI requests used: {st.session_state.get('v3_calls',0)} of {PER_SESSION_CALL_LIMIT}")
+    st.caption("Research prototype using fictional policies. Source quotations are not independent verification or supplier certification.")
 
-    st.markdown("#### System")
-    backend_label = "Supabase" if settings.backend_mode == "supabase" and settings.has_supabase else "Local JSON"
-    st.caption(f"Storage · {backend_label}")
-    st.caption(f"Model · {settings.openai_model if settings.has_openai else 'Deterministic demo fallback'}")
-    st.caption(f"Session · {st.session_state.visitor_id[:8]}")
+render_header()
+render_author_card()
+with st.expander("How EvidencePath works", expanded=False):
+    st.markdown("""**1. Choose a case.** Use the sample documents or add your own PDF or text files.
 
-workspace_id = st.session_state.workspace_id
-scenario_name = st.session_state.scenario
-scenario_data = SCENARIOS[scenario_name]
-memories = store.list_memories(workspace_id)
-messages = store.list_messages(workspace_id)
-traces = store.list_traces(workspace_id)
-latest = st.session_state.latest_trace or (traces[-1] if traces else None)
-if latest is not None and st.session_state.latest_trace is None:
-    st.session_state.latest_trace = latest
-page = st.session_state.nav_page
+**2. Read the example policy.** This is a **fictional supplier rule**, not a legal standard.
 
-if page == "Overview":
-    hero()
-    
-    st.write("")
-    left, right = st.columns([1.55, 1])
-    with left:
-        st.subheader("A knowledge-graph-augmented hybrid memory framework for LLMs that evolves with the conversation")
-        st.write(
-            "GraphMind starts from a curated memory workspace (a person already interacted with the LLM), then updates memory from each new interaction in the Knowledge Graph. "
-            "The framework retrieves relevant prior facts from both KG and vector memory before answering, extracts durable information from the "
-            "latest conversation, resolves entity aliases, conversational references and conflicts."
-        )
-    with right:
-        creator_card()
+**3. Inspect evidence.** Click **Check next passage** or **Run automatically**. Retrieval finds relevant text, and claim extraction identifies possible answers.
 
-    st.write("")
-    st.subheader("How to use the system")
-    guide_columns = st.columns(5)
-    guide = [
-        ("Choose a scenario", "Select AI Researcher, Product Manager, or Travel Planner from the sidebar."),
-        ("Send a message", "Open Memory Lab, choose an example message, or type your own in the input field."),
-        ("See what was remembered", "Review the memories used and new information detected from your input."),
-        ("View the graph change", "| Open Graph Explorer → Recent updates | to inspect the new or updated relationship."),
-        ("Other Visualizations", "Explore Agent Orchestration Traces, Retrieval Evaluation and Memory Manager."),
-    ]
-    for index, (title, text) in enumerate(guide, start=1):
-        with guide_columns[index - 1]:
-            feature_card(title, text, f"STEP {index:02d}")
+**4. Review missing facts.** The decision engine checks whether an unknown fact could change the result. Conflicting claims remain visible.
+
+**5. Explore the sources.** Open the **Evidence Explorer** to inspect exact quotations and test what-if outcomes. Use **Compare methods** to see benchmark results.
+
+**What makes this an AI research prototype?** It combines retrieval, source-grounded claim extraction, a deterministic policy checker and an information-seeking agent. Their limitations are explained under **About the research**.
+
+**Important:** An exact quote proves what a document states, not whether it is true. Uploaded documents remain in session memory; selected passages go to OpenAI only in live mode. Do not upload information you lack permission to process.""")
 
 
-    st.write("")
-    
-    st.write("")
-    metric_columns = st.columns(5)
-    metric_columns[0].metric("Active memories", sum(m.get("status") in {"active", "confirmed"} for m in memories))
-    metric_columns[1].metric("Graph entities", len({value for m in memories for value in [m["subject"], m["object"]]}))
-    metric_columns[2].metric("Relationships", len(memories))
-    metric_columns[3].metric("Conversation turns", len(messages) // 2)
-    metric_columns[4].metric("Agent traces", len(traces))
+# ---------------------------------------------------------------------
+# Shared document state, isolated by document-content fingerprint
+# ---------------------------------------------------------------------
+files=[]
+if source=="My documents":
+    files=st.file_uploader("Add supplier documents (PDF, TXT, MD)",type=["pdf","txt","md"],accept_multiple_files=True,key="v3_uploads") or []
+    st.caption("Up to 6 files, 8 MB each, and 40 PDF pages per file. Scanned PDFs cannot be read here.")
+    if len(files)>6: st.error("Please add no more than 6 files."); st.stop()
+    if not files: st.info("Add a document to begin, or choose Sample documents.")
 
-elif page == "Memory Lab":
-    st.title("Memory Lab")
-    scenario_header(
-        scenario_data.get("display_title", scenario_name),
-        scenario_data["workspace"]["description"],
-        scenario_data.get("scenario_tags", []),
-        fictional=scenario_data.get("fictional_persona", False),
-    )
-    st.caption(
-    "Continue the conversation naturally by choosing an example prompt or entering your own. "
-    "Each turn retrieves relevant memories and may update the graph according to the selected memory policy."
-    )
+fingerprint=hashlib.sha256(f"{selected}:{source}".encode())
+for f in files:
+    fingerprint.update(f.name.encode()); fingerprint.update(f.getvalue())
+signature=fingerprint.hexdigest()
+if (source=="Sample documents" or files) and st.session_state.get("v3_signature")!=signature:
+    try:
+        segments=None
+        if files:
+            segments=[]
+            for i,f in enumerate(files):
+                segments.extend(uploaded_segments(f.name,f.getvalue(),f"UPLOAD-{i+1}"))
+            if len(segments)>300: raise ValueError("These documents are too long. Please upload shorter files (up to 300 text sections).")
+            if not segments: raise ValueError("These files do not contain readable text")
+        st.session_state["v3_session"]=start_session(selected,segments)
+        st.session_state["v3_signature"]=signature
+    except Exception as exc:
+        st.error(f"Could not read the files: {exc}")
+        st.stop()
+session=st.session_state.get("v3_session") if (source=="Sample documents" or files) else None
 
-    prompt_columns = st.columns(3)
-    for index, demo_prompt in enumerate(scenario_data["demo_prompts"][:3]):
-        if prompt_columns[index].button(demo_prompt, use_container_width=True, key=f"demo_{index}"):
-            st.session_state.queued_prompt = demo_prompt
 
-    chat_column, context_column = st.columns([1.62, 1])
-    submitted_prompt = None
-    with chat_column:
-        if not messages:
-            st.info("This isolated workspace contains preset memory but no conversation yet. Start with a suggested prompt or write your own.")
-        for message in messages[-16:]:
-            with st.chat_message(message["role"]):
-                st.markdown(message["content"])
+def perform_inspection(action):
+    """Charge quota before live model call, never store secret in UI state."""
+    if action.kind!='search': return []
+    if extraction=="Live OpenAI":
+        previous=int(st.session_state.get("v3_calls",0))
+        st.session_state["v3_calls"]=reserve_live_call(previous)
+        claims=inspect_segment(session,action.segment_id,'openai',KEY,MODEL_DEFAULT)
+    else:
+        claims=inspect_segment(session,action.segment_id,'offline')
+    if session.events:
+        session.events[-1]["Reason"]=action.reason
+    return claims
 
-        # Keep the latest memory decision visually attached to the conversation turn
-        # that produced it, instead of placing it far below the chat.
-        latest_decisions = latest.get("new_memory_decisions", []) if latest else []
-        if latest_decisions:
-            compact_memory_update(latest_decisions)
-            graph_changed = any(
-                decision.get("persistence") in {"added", "updated"}
-                for decision in latest_decisions
-            )
-            if graph_changed:
-                st.button(
-                    "View graph change",
-                    on_click=open_graph,
-                    use_container_width=True,
-                    key="memory_lab_view_latest_graph",
-                )
 
-        typed_prompt = st.chat_input("Continue the conversation and teach the agent something durable...")
-        submitted_prompt = typed_prompt or st.session_state.pop("queued_prompt", None)
-        if submitted_prompt:
-            with st.spinner("Running retrieval, response, extraction, conflict analysis, and memory update..."):
-                answer, trace = run_turn(
-                    store,
-                    workspace_id,
-                    submitted_prompt,
-                    scenario_name,
-                    st.session_state.memory_mode,
-                )
-                st.session_state.latest_trace = trace.model_dump()
-            st.rerun()
+def step_auto():
+    count=0
+    for _ in range(MAX_AGENT_STEPS):
+        action=next_action(session,rank_mode)
+        if action.kind!='search': break
+        perform_inspection(action)
+        count+=1
+    return count
 
-    with context_column:
-        st.subheader("Memory used for the answer")
-        if latest:
-            memory_cards(latest.get("retrieved_memories", []))
-        else:
-            st.info("Run a conversation turn to see the selected evidence.")
-        st.subheader("Memory policy")
-        policy_text = {
-            "Automatic": "Safe, high-confidence memories are written immediately. Ambiguous or conflicting candidates wait for review.",
-            "Review": "Every extracted candidate waits for approval and can be edited before it changes the graph.",
-            "Observe only": "The pipeline runs fully, but no extracted memory is persisted.",
-        }
-        st.write(policy_text[st.session_state.memory_mode])
+case_tab,explorer_tab,evaluation_tab,research_tab=st.tabs([
+    "01 · Case Workbench", "02 · Evidence Explorer", "03 · Compare methods", "04 · About the research"
+])
 
-        if latest and latest.get("new_memory_decisions"):
-            st.subheader("Latest memory decision")
-            with st.expander("Why did the memory change?", expanded=False):
-                decision_cards(latest.get("new_memory_decisions", []))
-
-    if latest:
+with case_tab:
+    render_section("Case Workbench","Review documents, track missing evidence, and see how the agent chooses its next step.")
+    if session:
+        snap=decision_snapshot(session.core)
+        render_policy(session.case.policy_text)
+        render_summary(snap['status'],len(snap['known']),len(session.case.labels),len(snap['critical']),session.cost)
+        col1,col2=st.columns([1.2,1],gap='large')
+        with col1:
+            render_section("Evidence status","Known facts, unresolved questions, and conflicts across source documents.")
+            items=[]
+            for k,label in session.case.labels.items():
+                value=("Yes" if snap['known'][k] else "No") if k in snap['known'] else "Conflicted" if k in snap['conflicts'] else "Unknown"
+                items.append({'Question':label,'Answer':value,'May change result':"Yes" if k in snap['critical'] else "",'Source statements':len(session.core.evidence.get(k,[]))})
+            st.dataframe(pd.DataFrame(items),hide_index=True,use_container_width=True)
+            if snap['conflicts']:
+                st.error("Documents disagree about: "+", ".join(session.case.labels[k] for k in snap['conflicts']))
+            if any(len({e.value for e in ev if e.method!='manual'})>1 for ev in session.core.evidence.values()):
+                st.warning("Some documents still disagree, even if you entered an answer manually. Please check which source is correct.")
+            st.caption("A quote shows what a document says. It does not prove the statement is true.")
+            with st.expander("Retrieval results · ranked source passages"):
+                target=st.selectbox("What are you trying to check?",list(session.case.labels),format_func=lambda x:session.case.labels[x],key="v3_query")
+                try:
+                    ranking=ranked_segments(session.case.keywords[target],session.segments,rank_mode)
+                    st.dataframe(pd.DataFrame([{'Rank':i,'Document':seg.title,'Page / section':seg.location,'Relevance score':round(score,3),'Inspected':seg.id in session.inspected} for i,(seg,score) in enumerate(ranking[:25],1)]),hide_index=True,use_container_width=True)
+                    st.caption("These scores rank passages for retrieval; they are not confidence scores or proof that the passage is correct.")
+                except Exception as exc:
+                    st.error(f"Retrieval not available: {exc}")
+        with col2:
+            render_section("Agent's next step","The agent selects a passage, requests clarification, or stops when the current facts settle the example rule.")
+            try: action=next_action(session,rank_mode)
+            except Exception as exc:
+                st.error(f"Retrieval failed: {exc}"); action=None
+            if action:
+                if action.kind=='stop':
+                    if snap['status']=='ELIGIBLE': st.success("Meets the example rule based on documents read so far")
+                    elif snap['status']=='NOT ELIGIBLE': st.error("Does not meet the example rule based on documents read so far")
+                    else: st.warning("Not enough evidence. Ask someone to review.")
+                    st.caption(action.reason)
+                elif action.kind=='search':
+                    seg=next(s for s in session.segments if s.id==action.segment_id)
+                    st.info(f"**Read next:** {seg.title} · {seg.location}")
+                    st.write(action.reason)
+                    with st.expander("Preview this passage"):
+                        st.code(seg.text[:1800],language='text')
+                else:
+                    st.warning("A person needs to clarify this")
+                    st.write(action.reason)
+                if action.kind=='search':
+                    l,r=st.columns(2)
+                    with l:
+                        if st.button("Check next passage",type="primary",use_container_width=True):
+                            try:
+                                perform_inspection(action)
+                                st.rerun()
+                            except Exception as exc:
+                                st.error("AI analysis failed. Nothing was changed." if extraction=="Live OpenAI" else f"Could not read this passage: {exc}")
+                    with r:
+                        if st.button("Run automatically",use_container_width=True):
+                            try:
+                                step_auto()
+                                st.rerun()
+                            except Exception as exc:
+                                st.error("The run stopped unexpectedly. Your results are saved for this session. Try Offline text matching." if extraction=="Live OpenAI" else str(exc))
+                if action.kind=='clarify' and action.fact_key:
+                    with st.form('v3_clarify'):
+                        st.markdown(f"**{session.case.labels[action.fact_key]}**")
+                        answer=st.radio("Your answer (not yet verified)",['Yes','No'],horizontal=True)
+                        if st.form_submit_button('Save answer',type='primary'):
+                            add_clarification(session,action.fact_key,answer=='Yes')
+                            st.rerun()
+                # Automatic stopping means the CURRENT observed facts determine
+                # the fictional policy outcome. It does not mean every available
+                # document has been checked or could not disagree with earlier ones.
+                pending = remaining_passages(session)
+                if pending:
+                    if action.kind == 'stop':
+                        st.warning(
+                            f"**{len(pending)} passage(s) still unread.** "
+                            "The result may change if you read more documents. "
+                            "You can check the rest below."
+                        )
+                    with st.expander(
+                        f"Check more documents · {len(pending)} remaining",
+                        expanded=(action.kind == 'stop'),
+                    ):
+                        st.caption(
+                            "You can keep reading even after the app stops. "
+                            "A new passage may confirm or change the result."
+                        )
+                        chosen = st.selectbox(
+                            "Choose an unread passage",
+                            [p.id for p in pending],
+                            format_func=lambda passage_id: next(
+                                f"{p.title} · {p.location} · {p.id}" for p in pending
+                                if p.id == passage_id
+                            ),
+                            key=f"v3_extra_review_{signature[:12]}",
+                        )
+                        chosen_passage = next(p for p in pending if p.id == chosen)
+                        st.caption(chosen_passage.text[:240] + ('…' if len(chosen_passage.text) > 240 else ''))
+                        if st.button(
+                            "Check this passage",
+                            type='secondary',
+                            use_container_width=True,
+                            key='v3_extra_review_run',
+                        ):
+                            try:
+                                audit_action = manual_review_action(session, chosen)
+                                perform_inspection(audit_action)
+                                if session.events:
+                                    session.events[-1]['Action'] = 'Extra document check'
+                                st.rerun()
+                            except Exception as exc:
+                                st.error(
+                                    "Could not check this passage. Previous results are still here. "
+                                    "Try Offline text matching if AI is unavailable."
+                                    if extraction == 'Live OpenAI'
+                                    else f"Could not review passage: {exc}"
+                                )
+                else:
+                    st.caption("All passages have been checked. Reset the case to start over.")
+                if st.button("Start this case again",use_container_width=True):
+                    st.session_state.pop('v3_signature',None)
+                    st.rerun()
+                st.caption(f"{len(session.inspected)} / {len(session.segments)} passages checked · {len(session.events)} steps taken")
         st.divider()
-        st.subheader("Agent orchestration")
-        trace_pipeline(latest)
-
-        st.subheader("Graph change from the latest turn")
-        graph_delta_panel(latest.get("graph_delta", {}))
-
-        pending = [
-            decision
-            for decision in latest.get("new_memory_decisions", [])
-            if decision.get("persistence") == "pending"
-            and decision.get("proposal_id") not in st.session_state.resolved_proposals
-        ]
-        if pending:
-            st.subheader("Review proposed memories")
-            st.caption("Edit the normalized triple before approving it, or reject it without changing the graph.")
-            for decision in pending:
-                proposal_id = decision["proposal_id"]
-                candidate = decision["candidate"]
-                with st.expander(
-                    f"{candidate['subject']} → {candidate['relation']} → {candidate['object']}",
-                    expanded=True,
-                ):
-                    with st.form(f"review_{proposal_id}"):
-                        memory_type = st.selectbox(
-                            "Memory type",
-                            ["preference", "goal", "skill", "project", "constraint", "fact", "event"],
-                            index=["preference", "goal", "skill", "project", "constraint", "fact", "event"].index(candidate["memory_type"]),
-                        )
-                        subject = st.text_input("Subject", candidate["subject"])
-                        relation = st.text_input("Relation", candidate["relation"])
-                        obj = st.text_input("Object", candidate["object"])
-                        confidence = st.slider("Confidence", 0.0, 1.0, float(candidate["confidence"]), 0.01)
-                        importance = st.slider("Importance", 0.0, 1.0, float(candidate["importance"]), 0.01)
-                        evidence = st.text_area("Evidence", candidate.get("evidence", ""))
-                        approve_column, reject_column = st.columns(2)
-                        approve = approve_column.form_submit_button("Approve and update graph", use_container_width=True)
-                        reject = reject_column.form_submit_button("Reject proposal", use_container_width=True)
-                    if approve:
-                        edited = MemoryCandidate(
-                            memory_type=memory_type,
-                            subject=subject,
-                            relation=relation.upper().replace(" ", "_"),
-                            object=obj,
-                            confidence=confidence,
-                            importance=importance,
-                            evidence=evidence,
-                        )
-                        result = apply_review_candidate(
-                            store,
-                            workspace_id,
-                            edited.model_dump(),
-                            decision.get("source_message_id"),
-                        )
-                        st.session_state.resolved_proposals[proposal_id] = result["persistence"]
-                        latest_decision = next(
-                            row for row in st.session_state.latest_trace["new_memory_decisions"] if row["proposal_id"] == proposal_id
-                        )
-                        latest_decision.update(result)
-                        delta = st.session_state.latest_trace["graph_delta"]
-                        target = "updated_ids" if result["persistence"] == "updated" else "added_ids"
-                        delta[target].append(result["memory_id"])
-                        if proposal_id in delta.get("pending_ids", []):
-                            delta["pending_ids"].remove(proposal_id)
-                        refreshed = store.list_memories(workspace_id)
-                        delta["after_memories"] = len(refreshed)
-                        delta["after_entities"] = len({value for row in refreshed for value in [row["subject"], row["object"]]})
-                        st.rerun()
-                    if reject:
-                        st.session_state.resolved_proposals[proposal_id] = "rejected"
-                        latest_decision = next(
-                            row for row in st.session_state.latest_trace["new_memory_decisions"] if row["proposal_id"] == proposal_id
-                        )
-                        latest_decision["persistence"] = "rejected"
-                        delta = st.session_state.latest_trace["graph_delta"]
-                        if proposal_id in delta.get("pending_ids", []):
-                            delta["pending_ids"].remove(proposal_id)
-                        st.rerun()
-
-elif page == "Graph Explorer":
-    st.title("Graph Explorer")
-    scenario_header(
-        scenario_data.get("display_title", scenario_name),
-        scenario_data["workspace"]["description"],
-        scenario_data.get("scenario_tags", []),
-        fictional=scenario_data.get("fictional_persona", False),
-    )
-    st.caption(
-        "Inspect what changed most recently, focus on one entity and its neighborhood, or open the complete graph. "
-        "New relationships are teal, confirmed or updated relationships are amber, and answer-grounding memories are blue."
-    )
-
-    delta = latest.get("graph_delta", {}) if latest else {}
-    used_ids = {memory["id"] for memory in latest.get("retrieved_memories", [])} if latest else set()
-    added_ids = set(delta.get("added_ids", []))
-    updated_ids = set(delta.get("updated_ids", []))
-
-    view_mode = st.radio(
-        "Graph view",
-        ["Recent updates", "Focused graph", "Full graph"],
-        horizontal=True,
-        index=0,
-        help=(
-            "Recent updates isolates the latest changed links. Focused graph shows a small entity neighborhood. "
-            "Full graph is available for advanced inspection."
-        ),
-    )
-
-    if view_mode == "Recent updates":
-        view_memories = recent_update_memories(memories, latest)
-        if latest and (added_ids or updated_ids):
-            st.subheader("Latest graph update")
-            graph_delta_panel(delta)
-            newest_changed = sort_relationships_newest_first(view_memories)
-            if newest_changed:
-                newest = newest_changed[0]
-                st.info(
-                    f"Latest relationship: **{newest['subject']} → {newest['relation'].replace('_', ' ')} → {newest['object']}**"
-                )
+        render_section("Agent trace","Inspect each document-reading or clarification action and its effect on the decision.")
+        if session.events:
+            trace = pd.DataFrame(session.events).rename(columns={
+                'Step':'Step', 'Action':'What happened', 'Target':'Document / topic',
+                'Evidence':'Statements found', 'Cost':'Effort points',
+                'Status':'Result', 'Reason':'Why',
+            })
+            if 'Result' in trace.columns:
+                trace['Result'] = trace['Result'].replace({
+                    'ELIGIBLE':'Meets rule', 'NOT ELIGIBLE':'Does not meet rule',
+                    'UNRESOLVED':'Needs more evidence',
+                })
+            if 'What happened' in trace.columns:
+                trace['What happened'] = trace['What happened'].replace({
+                    'Inspect source':'Checked document',
+                    'Manual clarification':'Saved a manual answer',
+                })
+            st.dataframe(trace,use_container_width=True,hide_index=True)
         else:
-            st.info(
-                "No relationship has been changed in this session yet. Showing the most recently observed stored relationships."
-            )
-    elif view_mode == "Focused graph":
-        entities = sorted({value for memory in memories for value in [memory["subject"], memory["object"]]})
-        latest_changed = recent_update_memories(memories, latest, fallback_limit=1)
-        preferred_entity = latest_changed[0]["subject"] if latest_changed else scenario_data.get("persona_name")
-        default_index = entities.index(preferred_entity) if preferred_entity in entities else 0
-        control_columns = st.columns([1.4, 1])
-        selected_entity = control_columns[0].selectbox("Focus entity", entities, index=default_index)
-        include_second_hop = control_columns[1].toggle(
-            "Include second-hop context",
-            value=False,
-            help="Add relationships connected to the selected entity's immediate neighbors.",
-        )
-        view_memories = focused_graph_memories(memories, selected_entity, include_second_hop)
-        st.caption(
-            f"Showing {'two-hop' if include_second_hop else 'one-hop'} relationships around **{selected_entity}**."
-        )
+            st.info("Inspect a passage to see the agent's steps here.")
     else:
-        view_memories = memories
-        st.warning(
-            "The full graph can be dense. Use Recent updates or Focused graph for faster inspection of a new or changed relationship."
-        )
+        st.info("Choose Sample documents or add your own files to begin.")
 
-    with st.expander("Advanced filters", expanded=False):
-        type_options = sorted({memory["memory_type"] for memory in view_memories})
-        status_options = sorted({memory.get("status", "active") for memory in view_memories})
-        filter_columns = st.columns([1, 1, 1.3])
-        selected_types = filter_columns[0].multiselect("Memory types", type_options, default=type_options)
-        selected_statuses = filter_columns[1].multiselect("Statuses", status_options, default=status_options)
-        entity_query = filter_columns[2].text_input("Search entity or relation")
+with explorer_tab:
+    render_section("Evidence Explorer","Trace extracted claims to their exact sources, inspect contradictions, and explore what-if decisions.")
+    if session:
+        rows=ledger_rows(session)
+        left,right=st.columns([1.2,1],gap="large")
+        with left:
+            render_section("Evidence ledger","Each extracted claim includes its source, exact passage, and any conflicting evidence.")
+            if rows:
+                plain_rows = pd.DataFrame(rows).rename(columns={
+                    "Fact": "Question", "Value": "Answer", "Location": "Where", "Quote": "Document says",
+                    "Method": "Read using", "Verbatim grounded": "Quote found in text",
+                    "Decision-critical": "May change result", "Unresolved conflict": "Unresolved disagreement",
+                    "Source disagreement": "Documents disagree",
+                })
+                plain_rows['Read using'] = plain_rows['Read using'].replace({'offline-pattern':'Offline text matching','llm-structured / exact-span':'Live AI text analysis','manual':'Manual answer'})
+                st.dataframe(plain_rows,hide_index=True,use_container_width=True)
+                for i,r in enumerate(rows):
+                    with st.expander(f"{r['Fact']} · {r['Value']} · {r['Source']} · {r['Location']}"):
+                        st.code(r['Quote'],language='text')
+                        st.caption(f"Read using: { {'offline-pattern':'Offline text matching','llm-structured / exact-span':'Live AI text analysis','manual':'Manual answer'}.get(r['Method'],r['Method']) } · Exact quote found: {r['Verbatim grounded']} · Documents disagree: {r['Source disagreement']}")
+            else:
+                st.info("No statements yet. Check a passage in the first tab.")
+        with right:
+            render_section("What could change the result?","Counterfactual check: try a possible answer and see whether the decision changes. This does not add evidence.")
+            key=st.selectbox("Choose a question",list(session.case.labels),format_func=lambda k:session.case.labels[k],key='v3_what_if')
+            cf=alternatives(session.core,key)
+            st.caption(f"Current answer: **{ {'UNKNOWN':'Not known', 'CONFLICT':'Documents disagree'}.get(cf['current'],cf['current']) }**")
+            a,b=st.columns(2)
+            with a: st.metric("If Yes",{'ELIGIBLE':'Meets rule','NOT ELIGIBLE':'Does not meet rule','UNRESOLVED':'Needs more evidence'}.get(cf['if_yes'],cf['if_yes']))
+            with b: st.metric("If No",{'ELIGIBLE':'Meets rule','NOT ELIGIBLE':'Does not meet rule','UNRESOLVED':'Needs more evidence'}.get(cf['if_no'],cf['if_no']))
+            if cf['changes_decision']: st.info("This answer could change the result.")
+            else: st.caption("Changing this answer alone would not settle the result.")
+            if cf['other_unknowns_remaining']: st.caption("Other questions still need answers: "+", ".join(session.case.labels.get(k,k) for k in cf['other_unknowns_remaining']))
+            st.caption("These are examples, not proof or an approval recommendation.")
+        st.divider()
+        with st.expander("Policy and evidence graph",expanded=True):
+            st.graphviz_chart(to_dot(session.core),use_container_width=True)
+        with st.expander("Download the results",expanded=False):
+            st.warning("Downloads may include text from your documents. Check before sharing.")
+            st.download_button("Download readable report",report_markdown(session),"EvidencePath_assessment.md",mime='text/markdown')
+            st.download_button("Download full data (JSON)",report_json(session),"EvidencePath_assessment.json",mime='application/json')
+            if rows: st.download_button("Download statements (CSV)",pd.DataFrame(rows).to_csv(index=False).encode('utf-8'),"EvidencePath_ledger.csv",mime='text/csv')
+    else: st.info("Open a case in the first tab to begin.")
 
-    filtered = [
-        memory
-        for memory in view_memories
-        if memory["memory_type"] in selected_types
-        and memory.get("status", "active") in selected_statuses
-        and (
-            not entity_query
-            or entity_query.lower() in f"{memory['subject']} {memory['relation']} {memory['object']}".lower()
-        )
-    ]
-
-    projects = scenario_data.get("projects", [])
-    component_names = {
-        component
-        for component_list in scenario_data.get("project_components", {}).values()
-        for component in component_list
-    }
-    if projects:
-        st.caption(
-            "Node colors: gold = fictional researcher · violet = research project · "
-            "teal = functional component · blue = concept or output"
-        )
-
-    if filtered:
-        st.plotly_chart(
-            graph_figure(
-                filtered,
-                used_ids=used_ids,
-                added_ids=added_ids,
-                updated_ids=updated_ids,
-                project_names=set(projects),
-                component_names=component_names,
-                persona_name=scenario_data.get("persona_name"),
-            ),
-            use_container_width=True,
-        )
+with evaluation_tab:
+    render_section("Compare methods","Controlled benchmarks compare decision accuracy, coverage, evidence cost and contradictions. All cases are synthetic.")
+    suite=st.radio("Benchmark suite",["V3 · Noisy-passage evaluation","V1 · Structured-fact baseline"],horizontal=True)
+    if suite.startswith("V3"):
+        st.caption("V3 stress test: perturb passages in three fictional policy templates, then compare static retrieval, retrieve-first search and decision-aware search. Not an independent legal or supplier benchmark.")
+        if 'v3_stress_results' in st.session_state:
+            raw,summary=st.session_state['v3_stress_results']
+            st.caption('Results from your current test')
+        else:
+            base=Path(__file__).parent/'results'
+            raw=pd.read_csv(base/'v3_stress_raw.csv')
+            summary=pd.read_csv(base/'v3_stress_summary.csv')
+            st.caption('Saved reference run: 90 synthetic cases · fixed seed 23 · up to 5 passage inspections')
+        c1,c2,c3=st.columns(3)
+        with c1: n=st.slider('Synthetic cases',30,180,90,30)
+        with c2: seed=st.number_input('Random seed (reproducibility)',0,99999,23)
+        with c3:
+            budget=st.slider('Evidence budget · max passages',1,10,5)
+            if st.button('Run benchmark',use_container_width=True):
+                with st.spinner('Running the test…'):
+                    st.session_state['v3_stress_results']=run_stress_benchmark(n,int(seed),budget)
+                st.rerun()
+        metrics=summary.copy()
+        for col in ['coverage','correctly_resolved','incorrect','conflict_flagged']:
+            metrics[col]=(metrics[col]*100).round(1)
+        metrics=metrics.rename(columns={'strategy':'Strategy','cases':'Cases','coverage':'Resolved %','correctly_resolved':'Correctly resolved %','incorrect':'Incorrect decision %','mean_passages':'Mean passages','conflict_flagged':'Conflict flagged %','mean_cost':'Mean cost'})
+        plain_metrics = metrics.rename(columns={
+            'Strategy':'Retrieval / agent strategy', 'Cases':'Test cases', 'Resolved %':'Decision coverage %',
+            'Correctly resolved %':'Correct decisions %', 'Incorrect decision %':'Incorrect decisions %',
+            'Mean passages':'Passages inspected (avg)', 'Conflict flagged %':'Conflicts flagged %',
+            'Mean cost':'Acquisition cost (avg)',
+        })
+        plain_metrics['Retrieval / agent strategy'] = plain_metrics['Retrieval / agent strategy'].replace({'static_two':'Static (first 2 passages)','retrieve_first':'Retrieve-first','adaptive':'Decision-aware acquisition'})
+        st.dataframe(plain_metrics.round(2),hide_index=True,use_container_width=True)
+        st.caption("Decision coverage = percentage with a Yes/No outcome. Correct/incorrect decisions use **all cases** as the denominator; abstentions count as neither. Acquisition cost is simulated effort, not time or money.")
+        a,b=st.columns(2)
+        with a:
+            st.markdown('**Correct decisions · % of all cases**')
+            st.bar_chart(metrics.set_index('Strategy')['Correctly resolved %'])
+        with b:
+            st.markdown('**Incorrect decisions · % of all cases**')
+            st.bar_chart(metrics.set_index('Strategy')['Incorrect decision %'])
+        st.info("**Research trade-off:** A cautious agent may reduce incorrect decisions yet leave more cases unresolved. Compare error rate **and** coverage; neither alone shows which strategy is best.")
+        with st.expander('Inspect failure cases'):
+            wrong=raw[raw['incorrect']==1]
+            if not wrong.empty: st.dataframe(wrong.head(40),hide_index=True,use_container_width=True)
+            else: st.caption('No wrong answers in this test run.')
+        st.download_button('Download test results (CSV)',raw.to_csv(index=False),'EvidencePath_v3_stress.csv',mime='text/csv')
+        with st.expander('Benchmark design and limitations'):
+            st.markdown('**Setup:** Three handcrafted fictional policy templates generate perturbed document passages with omissions, irrelevant text and occasional contradictory claims. A deterministic oracle scores outcomes; no LLM judge is used.\n\n**Baselines:** Static retrieval reads the first two passages. Retrieve-first and decision-aware methods use the selected inspection budget. Different budgets must be considered when interpreting results.\n\n**Limits:** Variants of three templates are not independent real-world cases. This does not measure OpenAI extraction quality, legal reasoning, or performance on unseen policies.')
     else:
-        st.info("No relationships match the current graph view and filters.")
+        st.caption('V1 baseline uses scripted hidden facts and a deterministic rule oracle; it does not evaluate extraction from raw documents.')
+        if 'v3_old_benchmark' in st.session_state:
+            raw,summary=st.session_state['v3_old_benchmark']
+        else:
+            root=Path(__file__).parent/'results'
+            raw=pd.read_csv(root/'benchmark_raw.csv')
+            summary=pd.read_csv(root/'benchmark_summary.csv')
+        c1,c2=st.columns(2)
+        with c1: n_old=st.slider('Cases',15,300,60,15)
+        with c2:
+            if st.button('Run basic test'):
+                st.session_state['v3_old_benchmark']=run_benchmark(n_old,17)
+                st.rerun()
+        st.dataframe(summary.rename(columns={'strategy':'Method','correctly_resolved':'Right answers','mean_cost':'Average effort'}),hide_index=True,use_container_width=True)
+        st.download_button('Download basic test results',raw.to_csv(index=False),'EvidencePath_v1_benchmark.csv',mime='text/csv')
 
-    st.subheader("Evidence inspector")
-    ordered_relationships = sort_relationships_newest_first(filtered)
-    if ordered_relationships:
-        relationship_by_id = {memory["id"]: memory for memory in ordered_relationships}
-        newest_id = ordered_relationships[0]["id"]
-        selected_id = st.selectbox(
-            "Select a relationship",
-            [memory["id"] for memory in ordered_relationships],
-            format_func=lambda memory_id: (
-                f"{relationship_by_id[memory_id]['subject']} → "
-                f"{relationship_by_id[memory_id]['relation']} → "
-                f"{relationship_by_id[memory_id]['object']}"
-            ),
-            index=0,
-            key=f"evidence_{view_mode}_{newest_id}",
-        )
-        edge = relationship_by_id[selected_id]
-        metric_columns = st.columns(4)
-        metric_columns[0].metric("Confidence", f"{float(edge.get('confidence', 0)):.2f}")
-        metric_columns[1].metric("Importance", f"{float(edge.get('importance', 0)):.2f}")
-        metric_columns[2].metric("Status", edge.get("status", "active"))
-        metric_columns[3].metric("Observed", edge.get("mention_count", 1))
-        st.write(edge.get("evidence", "No evidence recorded."))
-        st.caption(f"First seen: {edge.get('first_seen_at', '—')} · Last seen: {edge.get('last_seen_at', '—')}")
-    else:
-        st.info("No relationships match the current view and filters.")
+with research_tab:
+    render_section('About the research', 'The research question, system design, benchmarks and honest limitations behind EvidencePath.')
+    st.markdown("""### Research question
 
+**Can an information-seeking agent identify which missing evidence could change a decision and acquire it without unnecessary document searches?**
 
-elif page == "Agent Trace":
-    st.title("Agent Trace")
-    st.caption("Inspect structured decisions and evidence without exposing private hidden reasoning.")
-    if not latest:
-        st.info("Run a conversation turn in Memory Lab first.")
-    else:
-        trace_pipeline(latest)
-        st.write("")
-        for stage in latest.get("stages", []):
-            with st.expander(f"{stage['name']} · {stage.get('duration_ms', 0)} ms"):
-                st.write(stage["summary"])
-                st.json(stage.get("details", {}))
-        st.subheader("Final memory context supplied to the response agent")
-        st.code(latest.get("final_context", ""), language="text")
-        st.subheader("Memory-write result")
-        graph_delta_panel(latest.get("graph_delta", {}))
-        decision_cards(latest.get("new_memory_decisions", []))
+Traditional retrieval ranks passages by relevance. EvidencePath also tracks whether the *facts those passages provide* are sufficient for a simple decision. This difference matters when a source is missing, two sources conflict, or an unknown fact would not affect the outcome.
 
-elif page == "Evaluation":
-    st.title("Retrieval Evaluation")
-    st.caption("Run the same query through vector-only, graph-only, and hybrid ranking policies.")
-    query = st.text_input("Evaluation query", scenario_data["demo_prompts"][0])
-    plan = heuristic_intent(query, scenario_name)
-    modes = {
-        "Vector only": retrieve_agent(query, memories, plan, limit=8, mode_override="vector"),
-        "Graph only": retrieve_agent(query, memories, plan, limit=8, mode_override="graph"),
-        "Hybrid": retrieve_agent(query, memories, plan, limit=8, mode_override="hybrid"),
-    }
-    tabs = st.tabs(list(modes))
-    for tab, (mode_name, rows) in zip(tabs, modes.items()):
-        with tab:
-            frame = pd.DataFrame(
-                [
-                    {
-                        "Memory": f"{row['subject']} → {row['relation']} → {row['object']}",
-                        "Type": row["memory_type"],
-                        "Semantic": row["semantic_score"],
-                        "Graph": row["graph_score"],
-                        "Final": row["final_score"],
-                    }
-                    for row in rows
-                ]
-            )
-            st.dataframe(frame, use_container_width=True, hide_index=True)
-            if not frame.empty:
-                st.bar_chart(frame.set_index("Memory")[["Semantic", "Graph", "Final"]])
-    st.info(
-        "This page is an inspectable MVP diagnostic, not a scientific benchmark. A rigorous extension should add "
-        "labeled relevance judgments and report Precision@k, Recall@k, MRR, relationship coverage, conflict-aware "
-        "accuracy, and memory citation coverage."
-    )
+### System design
 
-else:
-    st.title("Memory Manager")
-    st.caption("Review evidence and manually control the lifecycle of stored memories.")
-    st.dataframe(memory_table(memories), use_container_width=True, hide_index=True)
-    if memories:
-        labels = {
-            f"{memory['memory_type']} · {memory['subject']} → {memory['relation']} → {memory['object']}": memory
-            for memory in memories
-        }
-        selected = labels[st.selectbox("Select memory", list(labels))]
-        action_columns = st.columns(3)
-        if action_columns[0].button("Confirm", use_container_width=True):
-            store.update_memory_status(selected["id"], "confirmed")
-            st.rerun()
-        if action_columns[1].button("Archive", use_container_width=True):
-            store.update_memory_status(selected["id"], "archived")
-            st.rerun()
-        if action_columns[2].button("Mark contradicted", use_container_width=True):
-            store.update_memory_status(selected["id"], "contradicted")
-            st.rerun()
-        with st.expander("Full memory record"):
-            st.json(selected)
+**Document text → passage retrieval → claim extraction → evidence ledger → decision check → next agent action**
+
+- **Hybrid retrieval:** BM25 keyword matching plus offline LSA similarity by default. Optional neural embeddings and cross-encoder reranking help test stronger ranking methods.
+- **Source-grounded extraction:** Offline text patterns or optional OpenAI structured outputs propose fact values. An LLM claim must include a verbatim quotation from the inspected passage.
+- **Evidence provenance:** Each claim retains its source and passage. Contradictory claims remain visible instead of being resolved by a majority vote.
+- **Deterministic decision check:** A simple Boolean policy model evaluates whether currently unresolved facts can change the result.
+- **Evidence-acquisition agent:** The controller retrieves another passage, requests clarification or stops. A user can still review unread passages after automatic stopping.
+
+### How we evaluate it
+
+The **V1 benchmark** tests acquiring predefined facts. The **V3 stress benchmark** tests retrieval and decisions over noisy passages generated from three fictional supplier scenarios. Methods are compared by **decision coverage, correct and incorrect decision rates, evidence cost and conflict detection**. A fixed oracle scores the synthetic cases, not an LLM judge.
+
+The useful result is not simply the highest number of completed cases. A method may answer more questions **while also making more incorrect decisions**. The evaluation makes this accuracy–coverage trade-off visible.
+
+### Scope and limitations
+
+**This is a research prototype, not a compliance certification system.** The policies are fictional, and the Boolean rules are authored in advance. An exact quote verifies where a claim came from, **not whether the claim is true**. Unread documents can still contain contradictions, and the benchmark does not establish legal reliability or generalisation to unseen domains.
+""")
+    with st.expander('Technical details · algorithms and reproducibility', expanded=False):
+        st.markdown("""**Decision sufficiency:** For unresolved Boolean policy variables, the checker enumerates remaining assignments. If all assignments produce the same policy result, the observed state is sufficient *under the simplified rule and sources inspected*. It is not a guarantee that later evidence cannot contradict an observed fact.
+
+**Retrieval:** BM25 + latent semantic analysis (LSA) is the offline default. Optional pretrained sentence embeddings and cross-encoder reranking require separate dependencies. Retrieval score indicates relevance, not certainty.
+
+**Claim processing:** Optional OpenAI extraction uses structured outputs and an exact-quote guard. Extracted statements are candidates; no independent factual validation or legal interpretation is performed.
+
+**Agent policy:** A heuristic selects document inspection or clarification based on current decision-critical gaps. It is not a learned optimal value-of-information policy. Automatic stopping and user-requested full review are separate.
+
+**Evaluation setup:** The original V1 suite exposes scripted hidden facts to a deterministic oracle, not the agent. V3 adds passage omission, distractors and contradictions to three handcrafted templates. Static retrieval inspects two passages; the other strategies share a configured maximum. This is a controlled engineering diagnostic, not an independent external benchmark.
+
+**Privacy:** Server-side API credentials are never requested from visitors. Selected passages are sent to OpenAI only in live mode. Local usage quotas are best-effort and do not guarantee spending caps.
+
+**Reproduce experiments:**
+```bash
+python -m evidencepath.benchmark --n 150 --seed 17 --output results
+python -m evidencepath.stress_benchmark --n 90 --seed 23 --budget 5 --output results
+python -m pytest -q
+```
+""")
+    with st.expander('Quick glossary', expanded=False):
+        st.markdown("""- **Retrieval:** Finding relevant passages in documents.
+- **Hybrid retrieval:** Combining keyword and semantic similarity for passage ranking.
+- **Claim extraction:** Turning a statement in text into a proposed structured fact.
+- **Provenance:** Recording where a statement came from, including its exact quotation.
+- **Decision sufficiency:** Checking whether unresolved facts can change a simplified rule-based result.
+- **Agent trace:** A record of which actions the system took and why.
+- **Decision coverage:** The share of test cases that receive a Yes/No conclusion, excluding abstentions.
+""")
+
+render_footer()

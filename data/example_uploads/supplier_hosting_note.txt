@@ -1,0 +1,5 @@
+CloudCo — hosting and processing note
+
+The designated region is within the organisation's approved hosting locations.
+Production data is stored and processed in Frankfurt, Germany.
+These statements are self-reported by the supplier, not independently verified.

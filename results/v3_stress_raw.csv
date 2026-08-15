@@ -1,0 +1,271 @@
+case_id,strategy,oracle,decision,cost,inspections,conflict,needs_clarification,decided,correct,incorrect
+cloud-host-0,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,False,0,0,0
+cloud-host-0,retrieve_first,ELIGIBLE,ELIGIBLE,3.0,3,False,False,1,1,0
+cloud-host-0,adaptive,ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,1,0
+sandbox-exemption-1,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-1,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-1,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-2,static_two,NOT ELIGIBLE,NOT ELIGIBLE,2.0,2,False,False,1,1,0
+contradictory-evidence-2,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-2,adaptive,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+cloud-host-3,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-3,retrieve_first,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-3,adaptive,ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+sandbox-exemption-4,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-4,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-4,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-5,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-5,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-5,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-6,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,False,0,0,0
+cloud-host-6,retrieve_first,ELIGIBLE,UNRESOLVED,4.0,4,False,True,0,0,0
+cloud-host-6,adaptive,ELIGIBLE,UNRESOLVED,2.0,2,False,True,0,0,0
+sandbox-exemption-7,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-7,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-7,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-8,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-8,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-8,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-9,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-9,retrieve_first,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-9,adaptive,ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+sandbox-exemption-10,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-10,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-10,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-11,static_two,NOT ELIGIBLE,NOT ELIGIBLE,2.0,2,False,False,1,1,0
+contradictory-evidence-11,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-11,adaptive,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+cloud-host-12,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-12,retrieve_first,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-12,adaptive,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-13,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-13,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-13,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-14,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-14,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-14,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-15,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,False,0,0,0
+cloud-host-15,retrieve_first,ELIGIBLE,ELIGIBLE,3.0,3,False,False,1,1,0
+cloud-host-15,adaptive,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-16,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-16,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-16,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-17,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-17,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-17,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-18,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,False,0,0,0
+cloud-host-18,retrieve_first,ELIGIBLE,NOT ELIGIBLE,3.0,3,False,False,1,0,1
+cloud-host-18,adaptive,ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,0,1
+sandbox-exemption-19,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-19,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-19,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-20,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-20,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-20,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-21,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,False,0,0,0
+cloud-host-21,retrieve_first,ELIGIBLE,ELIGIBLE,3.0,3,False,False,1,1,0
+cloud-host-21,adaptive,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-22,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-22,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-22,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-23,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-23,retrieve_first,NOT ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,0,1
+contradictory-evidence-23,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-24,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,False,0,0,0
+cloud-host-24,retrieve_first,ELIGIBLE,ELIGIBLE,3.0,3,False,False,1,1,0
+cloud-host-24,adaptive,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-25,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-25,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-25,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-26,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-26,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-26,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-27,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-27,retrieve_first,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-27,adaptive,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-28,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-28,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-28,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-29,static_two,NOT ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,0,1
+contradictory-evidence-29,retrieve_first,NOT ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,0,1
+contradictory-evidence-29,adaptive,NOT ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,0,1
+cloud-host-30,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,False,0,0,0
+cloud-host-30,retrieve_first,ELIGIBLE,ELIGIBLE,3.0,3,False,False,1,1,0
+cloud-host-30,adaptive,ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,1,0
+sandbox-exemption-31,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-31,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-31,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-32,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-32,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-32,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-33,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-33,retrieve_first,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-33,adaptive,ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,1,0
+sandbox-exemption-34,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-34,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-34,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-35,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-35,retrieve_first,NOT ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,0,1
+contradictory-evidence-35,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-36,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,False,0,0,0
+cloud-host-36,retrieve_first,ELIGIBLE,ELIGIBLE,3.0,3,False,False,1,1,0
+cloud-host-36,adaptive,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-37,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-37,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-37,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-38,static_two,NOT ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,0,1
+contradictory-evidence-38,retrieve_first,NOT ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,0,1
+contradictory-evidence-38,adaptive,NOT ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,0,1
+cloud-host-39,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-39,retrieve_first,ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,1,0
+cloud-host-39,adaptive,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-40,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-40,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-40,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-41,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-41,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-41,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-42,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,False,0,0,0
+cloud-host-42,retrieve_first,ELIGIBLE,ELIGIBLE,3.0,3,False,False,1,1,0
+cloud-host-42,adaptive,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-43,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-43,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-43,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-44,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-44,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-44,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-45,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,False,0,0,0
+cloud-host-45,retrieve_first,ELIGIBLE,ELIGIBLE,3.0,3,False,False,1,1,0
+cloud-host-45,adaptive,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-46,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-46,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-46,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-47,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-47,retrieve_first,NOT ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,0,1
+contradictory-evidence-47,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-48,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,False,0,0,0
+cloud-host-48,retrieve_first,ELIGIBLE,ELIGIBLE,3.0,3,False,False,1,1,0
+cloud-host-48,adaptive,ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,1,0
+sandbox-exemption-49,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-49,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-49,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-50,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-50,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-50,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-51,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,False,0,0,0
+cloud-host-51,retrieve_first,ELIGIBLE,ELIGIBLE,3.0,3,False,False,1,1,0
+cloud-host-51,adaptive,ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,1,0
+sandbox-exemption-52,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-52,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-52,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-53,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-53,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-53,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-54,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-54,retrieve_first,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-54,adaptive,ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,1,0
+sandbox-exemption-55,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-55,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-55,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-56,static_two,NOT ELIGIBLE,NOT ELIGIBLE,2.0,2,False,False,1,1,0
+contradictory-evidence-56,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-56,adaptive,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+cloud-host-57,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,False,0,0,0
+cloud-host-57,retrieve_first,ELIGIBLE,ELIGIBLE,3.0,3,False,False,1,1,0
+cloud-host-57,adaptive,ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,1,0
+sandbox-exemption-58,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-58,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-58,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-59,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-59,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-59,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-60,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,True,0,0,0
+cloud-host-60,retrieve_first,ELIGIBLE,UNRESOLVED,3.0,3,False,True,0,0,0
+cloud-host-60,adaptive,ELIGIBLE,UNRESOLVED,1.0,1,False,True,0,0,0
+sandbox-exemption-61,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-61,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-61,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-62,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-62,retrieve_first,NOT ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,0,1
+contradictory-evidence-62,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-63,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,False,0,0,0
+cloud-host-63,retrieve_first,ELIGIBLE,ELIGIBLE,3.0,3,False,False,1,1,0
+cloud-host-63,adaptive,ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+sandbox-exemption-64,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-64,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-64,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-65,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-65,retrieve_first,NOT ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,0,1
+contradictory-evidence-65,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-66,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,False,0,0,0
+cloud-host-66,retrieve_first,ELIGIBLE,ELIGIBLE,3.0,3,False,False,1,1,0
+cloud-host-66,adaptive,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-67,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-67,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-67,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-68,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-68,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-68,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-69,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-69,retrieve_first,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-69,adaptive,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-70,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-70,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-70,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-71,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-71,retrieve_first,NOT ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,0,1
+contradictory-evidence-71,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-72,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-72,retrieve_first,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-72,adaptive,ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,1,0
+sandbox-exemption-73,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-73,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-73,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-74,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-74,retrieve_first,NOT ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,0,1
+contradictory-evidence-74,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-75,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,False,0,0,0
+cloud-host-75,retrieve_first,ELIGIBLE,ELIGIBLE,3.0,3,False,False,1,1,0
+cloud-host-75,adaptive,ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,1,0
+sandbox-exemption-76,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-76,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-76,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-77,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-77,retrieve_first,NOT ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,0,1
+contradictory-evidence-77,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-78,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,False,0,0,0
+cloud-host-78,retrieve_first,ELIGIBLE,ELIGIBLE,3.0,3,False,False,1,1,0
+cloud-host-78,adaptive,ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,1,0
+sandbox-exemption-79,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-79,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-79,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-80,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-80,retrieve_first,NOT ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,0,1
+contradictory-evidence-80,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-81,static_two,ELIGIBLE,NOT ELIGIBLE,2.0,2,False,False,1,0,1
+cloud-host-81,retrieve_first,ELIGIBLE,NOT ELIGIBLE,2.0,2,False,False,1,0,1
+cloud-host-81,adaptive,ELIGIBLE,NOT ELIGIBLE,2.0,2,False,False,1,0,1
+sandbox-exemption-82,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-82,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-82,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-83,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-83,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-83,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-84,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-84,retrieve_first,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+cloud-host-84,adaptive,ELIGIBLE,ELIGIBLE,1.0,1,False,False,1,1,0
+sandbox-exemption-85,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-85,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-85,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-86,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-86,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-86,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+cloud-host-87,static_two,ELIGIBLE,UNRESOLVED,2.0,2,False,True,0,0,0
+cloud-host-87,retrieve_first,ELIGIBLE,UNRESOLVED,3.0,3,False,True,0,0,0
+cloud-host-87,adaptive,ELIGIBLE,UNRESOLVED,1.0,1,False,True,0,0,0
+sandbox-exemption-88,static_two,ELIGIBLE,ELIGIBLE,2.0,2,False,False,1,1,0
+sandbox-exemption-88,retrieve_first,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+sandbox-exemption-88,adaptive,ELIGIBLE,ELIGIBLE,0.0,0,False,False,1,1,0
+contradictory-evidence-89,static_two,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0
+contradictory-evidence-89,retrieve_first,NOT ELIGIBLE,NOT ELIGIBLE,1.0,1,False,False,1,1,0
+contradictory-evidence-89,adaptive,NOT ELIGIBLE,UNRESOLVED,2.0,2,True,True,0,0,0

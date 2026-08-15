@@ -1,0 +1,751 @@
+case_id,template,strategy,actual,status,decided,correct,incorrect_decisions,cost,steps,searches,questions,unnecessary_actions,unknowns_remaining
+synthetic-000,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-000,cloud,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,2
+synthetic-000,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,9.0,5,3,2,1,0
+synthetic-000,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,12.0,4,0,4,0,0
+synthetic-000,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,8.0,4,2,2,0,0
+synthetic-001,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-001,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-001,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-001,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-001,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-002,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-002,packaging,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-002,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-002,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-002,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-003,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-003,cloud,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,1
+synthetic-003,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,3,3,0,1,0
+synthetic-003,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,12.0,4,0,4,1,0
+synthetic-003,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-004,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-004,software,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,2
+synthetic-004,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,9.0,5,3,2,1,0
+synthetic-004,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,12.0,4,0,4,0,0
+synthetic-004,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,8.0,4,2,2,0,0
+synthetic-005,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-005,packaging,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,2
+synthetic-005,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,4,3,1,1,0
+synthetic-005,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,2,0,2,0,0
+synthetic-005,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,5.0,3,2,1,0,0
+synthetic-006,cloud,direct,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-006,cloud,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,2,0
+synthetic-006,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-006,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-006,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-007,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-007,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-007,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-007,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-007,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-008,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-008,packaging,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,2,1
+synthetic-008,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,4,3,1,3,0
+synthetic-008,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-008,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-009,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-009,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-009,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-009,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-009,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-010,software,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-010,software,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,1
+synthetic-010,software,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,3,3,0,0,0
+synthetic-010,software,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,0,0
+synthetic-010,software,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,3,3,0,0,0
+synthetic-011,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-011,packaging,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-011,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-011,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-011,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-012,cloud,direct,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-012,cloud,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,2,0
+synthetic-012,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-012,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-012,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-013,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-013,software,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,2
+synthetic-013,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,4.0,4,4,0,0,0
+synthetic-013,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,15.0,5,0,5,1,0
+synthetic-013,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,4.0,4,4,0,0,0
+synthetic-014,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-014,packaging,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,1
+synthetic-014,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,4.0,4,4,0,1,0
+synthetic-014,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,0,0
+synthetic-014,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,3.0,3,3,0,0,0
+synthetic-015,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-015,cloud,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,1
+synthetic-015,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,4,3,1,2,0
+synthetic-015,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,2,0,2,0,0
+synthetic-015,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,5.0,3,2,1,0,0
+synthetic-016,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-016,software,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,2
+synthetic-016,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,7.0,5,4,1,1,0
+synthetic-016,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,12.0,4,0,4,1,0
+synthetic-016,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,6.0,4,3,1,0,0
+synthetic-017,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-017,packaging,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,1
+synthetic-017,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,4.0,4,4,0,1,0
+synthetic-017,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-017,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-018,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-018,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-018,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-018,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-018,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-019,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-019,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-019,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-019,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-019,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-020,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-020,packaging,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,1
+synthetic-020,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,3,3,0,1,0
+synthetic-020,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,2,0,2,0,0
+synthetic-020,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-021,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-021,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-021,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-021,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,2,0
+synthetic-021,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-022,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-022,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-022,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-022,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-022,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-023,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-023,packaging,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-023,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-023,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,12.0,4,0,4,0,0
+synthetic-023,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,3,3,0,0,0
+synthetic-024,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-024,cloud,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-024,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-024,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,15.0,5,0,5,3,0
+synthetic-024,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-025,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-025,software,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,2
+synthetic-025,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,4.0,4,4,0,0,0
+synthetic-025,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,0,0
+synthetic-025,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,4.0,4,4,0,0,0
+synthetic-026,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-026,packaging,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-026,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-026,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,15.0,5,0,5,2,0
+synthetic-026,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-027,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-027,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-027,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-027,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-027,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-028,software,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-028,software,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-028,software,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-028,software,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-028,software,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-029,packaging,direct,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-029,packaging,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,1,0
+synthetic-029,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-029,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-029,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-030,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-030,cloud,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-030,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-030,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,0,0
+synthetic-030,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-031,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-031,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-031,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-031,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-031,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-032,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-032,packaging,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-032,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-032,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-032,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-033,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-033,cloud,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-033,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-033,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,0,0
+synthetic-033,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-034,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-034,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-034,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-034,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-034,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-035,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-035,packaging,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-035,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-035,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,15.0,5,0,5,1,0
+synthetic-035,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-036,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-036,cloud,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-036,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-036,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,2,0
+synthetic-036,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-037,software,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-037,software,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-037,software,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-037,software,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-037,software,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-038,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-038,packaging,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,2,1
+synthetic-038,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,5.0,3,2,1,2,0
+synthetic-038,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,2,0
+synthetic-038,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-039,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-039,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-039,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-039,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-039,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-040,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-040,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-040,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-040,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-040,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-041,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-041,packaging,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-041,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-041,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,2,0
+synthetic-041,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-042,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-042,cloud,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,1
+synthetic-042,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,5.0,3,2,1,1,0
+synthetic-042,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-042,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,4.0,2,1,1,0,0
+synthetic-043,software,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-043,software,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,1
+synthetic-043,software,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,4,3,1,2,0
+synthetic-043,software,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,15.0,5,0,5,1,0
+synthetic-043,software,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,5.0,3,2,1,0,0
+synthetic-044,packaging,direct,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-044,packaging,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,2,0
+synthetic-044,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-044,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-044,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-045,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-045,cloud,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,2
+synthetic-045,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,6.0,4,3,1,1,0
+synthetic-045,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,0,0
+synthetic-045,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,5.0,3,2,1,0,0
+synthetic-046,software,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-046,software,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-046,software,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-046,software,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,12.0,4,0,4,2,0
+synthetic-046,software,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,3,3,0,0,0
+synthetic-047,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-047,packaging,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,1.0,1,1,0,1,3
+synthetic-047,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,10.0,4,1,3,1,0
+synthetic-047,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,12.0,4,0,4,2,0
+synthetic-047,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,0,0
+synthetic-048,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-048,cloud,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-048,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-048,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,0,0
+synthetic-048,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-049,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-049,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-049,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-049,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,0,0
+synthetic-049,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-050,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-050,packaging,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-050,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-050,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-050,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-051,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-051,cloud,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,1
+synthetic-051,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,3,3,0,1,0
+synthetic-051,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-051,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-052,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-052,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-052,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-052,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-052,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-053,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-053,packaging,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,1
+synthetic-053,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,4.0,4,4,0,1,0
+synthetic-053,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,12.0,4,0,4,1,0
+synthetic-053,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,3,3,0,0,0
+synthetic-054,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-054,cloud,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,2
+synthetic-054,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,4.0,4,4,0,0,0
+synthetic-054,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,15.0,5,0,5,1,0
+synthetic-054,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,4.0,4,4,0,0,0
+synthetic-055,software,direct,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-055,software,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,2,0
+synthetic-055,software,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-055,software,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-055,software,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-056,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-056,packaging,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,1
+synthetic-056,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,6.0,4,3,1,1,0
+synthetic-056,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,12.0,4,0,4,1,0
+synthetic-056,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,5.0,3,2,1,0,0
+synthetic-057,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-057,cloud,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,1.0,1,1,0,1,2
+synthetic-057,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,7.0,3,1,2,1,0
+synthetic-057,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-057,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,0,0
+synthetic-058,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-058,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-058,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-058,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-058,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-059,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-059,packaging,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,1
+synthetic-059,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,4,3,1,2,0
+synthetic-059,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-059,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,4.0,2,1,1,0,0
+synthetic-060,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-060,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-060,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-060,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-060,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-061,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-061,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-061,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-061,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-061,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-062,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-062,packaging,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,1.0,1,1,0,1,1
+synthetic-062,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,4.0,2,1,1,1,0
+synthetic-062,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-062,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-063,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-063,cloud,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-063,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-063,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-063,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-064,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-064,software,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,1
+synthetic-064,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-064,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-064,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-065,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-065,packaging,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-065,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-065,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-065,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-066,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-066,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-066,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-066,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-066,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-067,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-067,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-067,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-067,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,2,0
+synthetic-067,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-068,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-068,packaging,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-068,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-068,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,0,0
+synthetic-068,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-069,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-069,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-069,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-069,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,2,0
+synthetic-069,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-070,software,direct,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-070,software,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,2,0
+synthetic-070,software,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-070,software,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-070,software,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-071,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-071,packaging,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-071,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-071,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,2,0
+synthetic-071,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-072,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-072,cloud,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-072,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-072,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,2,0
+synthetic-072,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-073,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-073,software,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,1.0,1,1,0,1,4
+synthetic-073,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,13.0,5,1,4,1,0
+synthetic-073,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,15.0,5,0,5,1,0
+synthetic-073,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,12.0,4,0,4,0,0
+synthetic-074,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-074,packaging,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-074,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-074,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-074,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-075,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-075,cloud,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,2
+synthetic-075,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,4.0,4,4,0,0,0
+synthetic-075,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,12.0,4,0,4,1,0
+synthetic-075,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,4.0,4,4,0,0,0
+synthetic-076,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-076,software,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,1
+synthetic-076,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,3.0,3,3,0,0,0
+synthetic-076,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,0,0
+synthetic-076,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,3.0,3,3,0,0,0
+synthetic-077,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-077,packaging,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-077,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-077,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,15.0,5,0,5,1,0
+synthetic-077,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,3,3,0,0,0
+synthetic-078,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-078,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-078,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-078,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,2,0
+synthetic-078,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-079,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-079,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-079,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-079,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,12.0,4,0,4,1,0
+synthetic-079,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-080,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-080,packaging,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,2
+synthetic-080,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,9.0,5,3,2,1,0
+synthetic-080,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,12.0,4,0,4,1,0
+synthetic-080,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,8.0,4,2,2,0,0
+synthetic-081,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-081,cloud,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-081,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-081,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-081,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-082,software,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-082,software,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-082,software,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-082,software,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-082,software,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-083,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-083,packaging,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,2
+synthetic-083,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,5.0,3,2,1,1,0
+synthetic-083,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,12.0,4,0,4,2,0
+synthetic-083,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,4.0,2,1,1,0,0
+synthetic-084,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-084,cloud,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,1
+synthetic-084,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,5.0,3,2,1,1,0
+synthetic-084,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,2,0,2,0,0
+synthetic-084,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,4.0,2,1,1,0,0
+synthetic-085,software,direct,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-085,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,2,0
+synthetic-085,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-085,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-085,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-086,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-086,packaging,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-086,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-086,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-086,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-087,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-087,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-087,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-087,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-087,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-088,software,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-088,software,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-088,software,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-088,software,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-088,software,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-089,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-089,packaging,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,2
+synthetic-089,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,8.0,4,2,2,1,0
+synthetic-089,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,12.0,4,0,4,1,0
+synthetic-089,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,7.0,3,1,2,0,0
+synthetic-090,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-090,cloud,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,2
+synthetic-090,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,7.0,5,4,1,1,0
+synthetic-090,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,12.0,4,0,4,0,0
+synthetic-090,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,6.0,4,3,1,0,0
+synthetic-091,software,direct,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-091,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,2,0
+synthetic-091,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-091,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-091,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-092,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-092,packaging,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,2
+synthetic-092,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,9.0,5,3,2,1,0
+synthetic-092,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,15.0,5,0,5,1,0
+synthetic-092,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,8.0,4,2,2,0,0
+synthetic-093,cloud,direct,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-093,cloud,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,2,0
+synthetic-093,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-093,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-093,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-094,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-094,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-094,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-094,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-094,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-095,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-095,packaging,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-095,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-095,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-095,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-096,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-096,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-096,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-096,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-096,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-097,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-097,software,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,2
+synthetic-097,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,5.0,3,2,1,1,0
+synthetic-097,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,0,0
+synthetic-097,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,4.0,2,1,1,0,0
+synthetic-098,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-098,packaging,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-098,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-098,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,0,0
+synthetic-098,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-099,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-099,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-099,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-099,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,15.0,5,0,5,3,0
+synthetic-099,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-100,software,direct,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-100,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,1,0
+synthetic-100,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-100,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-100,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-101,packaging,direct,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-101,packaging,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,2,0
+synthetic-101,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-101,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-101,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-102,cloud,direct,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-102,cloud,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,2,0
+synthetic-102,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-102,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-102,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-103,software,direct,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-103,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,2,0
+synthetic-103,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-103,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-103,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-104,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-104,packaging,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,1.0,1,1,0,1,1
+synthetic-104,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,4.0,2,1,1,1,0
+synthetic-104,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-104,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-105,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-105,cloud,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,1
+synthetic-105,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,4,3,1,1,0
+synthetic-105,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-105,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,5.0,3,2,1,0,0
+synthetic-106,software,direct,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-106,software,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,1,0
+synthetic-106,software,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-106,software,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-106,software,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-107,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-107,packaging,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-107,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-107,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-107,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-108,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-108,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-108,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-108,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-108,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-109,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-109,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-109,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-109,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-109,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-110,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-110,packaging,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-110,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-110,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-110,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-111,cloud,direct,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-111,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,2,0
+synthetic-111,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-111,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-111,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-112,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-112,software,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,1
+synthetic-112,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,6.0,4,3,1,1,0
+synthetic-112,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,12.0,4,0,4,1,0
+synthetic-112,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,5.0,3,2,1,0,0
+synthetic-113,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-113,packaging,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-113,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-113,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-113,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-114,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-114,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-114,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-114,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-114,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-115,software,direct,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-115,software,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,2,0
+synthetic-115,software,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-115,software,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-115,software,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-116,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-116,packaging,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,1
+synthetic-116,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,4.0,4,4,0,1,0
+synthetic-116,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,12.0,4,0,4,1,0
+synthetic-116,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,3.0,3,3,0,0,0
+synthetic-117,cloud,direct,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-117,cloud,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,2,0
+synthetic-117,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-117,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-117,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-118,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-118,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-118,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-118,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-118,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-119,packaging,direct,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-119,packaging,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,2,0
+synthetic-119,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-119,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-119,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-120,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-120,cloud,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,1
+synthetic-120,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,6.0,4,3,1,1,0
+synthetic-120,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,0,0
+synthetic-120,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,5.0,3,2,1,0,0
+synthetic-121,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-121,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-121,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-121,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,0,0
+synthetic-121,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-122,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-122,packaging,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-122,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-122,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,2,0
+synthetic-122,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-123,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-123,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-123,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-123,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-123,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-124,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-124,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-124,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-124,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-124,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-125,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-125,packaging,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,2,1
+synthetic-125,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,4,3,1,3,0
+synthetic-125,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,2,0
+synthetic-125,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-126,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-126,cloud,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-126,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-126,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,0,0
+synthetic-126,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-127,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-127,software,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,1
+synthetic-127,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,5.0,3,2,1,1,0
+synthetic-127,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-127,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,4.0,2,1,1,0,0
+synthetic-128,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-128,packaging,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,2
+synthetic-128,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,4.0,4,4,0,1,0
+synthetic-128,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,15.0,5,0,5,1,0
+synthetic-128,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,3.0,3,3,0,0,0
+synthetic-129,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-129,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-129,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-129,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-129,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-130,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-130,software,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,1
+synthetic-130,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,3.0,3,3,0,0,0
+synthetic-130,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,12.0,4,0,4,1,0
+synthetic-130,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,3.0,3,3,0,0,0
+synthetic-131,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-131,packaging,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,1
+synthetic-131,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,3.0,3,3,0,1,0
+synthetic-131,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-131,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-132,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-132,cloud,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,1
+synthetic-132,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,4,3,1,1,0
+synthetic-132,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,12.0,4,0,4,1,0
+synthetic-132,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,4.0,2,1,1,0,0
+synthetic-133,software,direct,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-133,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,2,0
+synthetic-133,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-133,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-133,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-134,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-134,packaging,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-134,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-134,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,12.0,4,0,4,1,0
+synthetic-134,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-135,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-135,cloud,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,3
+synthetic-135,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,5.0,3,2,1,1,0
+synthetic-135,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,0,0
+synthetic-135,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,4.0,2,1,1,0,0
+synthetic-136,software,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-136,software,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-136,software,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-136,software,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-136,software,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-137,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-137,packaging,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,1
+synthetic-137,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,3.0,3,3,0,1,0
+synthetic-137,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-137,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-138,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-138,cloud,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-138,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-138,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-138,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-139,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-139,software,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,1.0,1,1,0,1,1
+synthetic-139,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,4.0,2,1,1,1,0
+synthetic-139,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-139,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-140,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-140,packaging,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-140,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-140,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,1,0
+synthetic-140,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-141,cloud,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-141,cloud,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,1
+synthetic-141,cloud,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,3.0,3,3,0,0,0
+synthetic-141,cloud,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-141,cloud,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,3.0,3,3,0,0,0
+synthetic-142,software,direct,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-142,software,static-rag,ELIGIBLE,ELIGIBLE,1,1,0,2.0,2,2,0,2,0
+synthetic-142,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-142,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-142,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,0.0,0,0,0,0,0
+synthetic-143,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-143,packaging,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,1
+synthetic-143,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,4,3,1,2,0
+synthetic-143,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,12.0,4,0,4,1,0
+synthetic-143,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,5.0,3,2,1,0,0
+synthetic-144,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-144,cloud,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-144,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-144,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,2,0,2,0,0
+synthetic-144,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,0,0
+synthetic-145,software,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-145,software,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,1,2
+synthetic-145,software,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,8.0,4,2,2,1,0
+synthetic-145,software,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,9.0,3,0,3,0,0
+synthetic-145,software,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,7.0,3,1,2,0,0
+synthetic-146,packaging,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,1
+synthetic-146,packaging,static-rag,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,2.0,2,2,0,1,0
+synthetic-146,packaging,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-146,packaging,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,3.0,1,0,1,0,0
+synthetic-146,packaging,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,1.0,1,1,0,0,0
+synthetic-147,cloud,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,2
+synthetic-147,cloud,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,1.0,1,1,0,1,2
+synthetic-147,cloud,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,7.0,3,1,2,1,0
+synthetic-147,cloud,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,9.0,3,0,3,1,0
+synthetic-147,cloud,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,2,0,2,0,0
+synthetic-148,software,direct,NOT ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,4
+synthetic-148,software,static-rag,NOT ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,2
+synthetic-148,software,retrieve-first,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,7.0,5,4,1,1,0
+synthetic-148,software,generic-clarification,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,15.0,5,0,5,1,0
+synthetic-148,software,evidencepath,NOT ELIGIBLE,NOT ELIGIBLE,1,1,0,6.0,4,3,1,0,0
+synthetic-149,packaging,direct,ELIGIBLE,UNRESOLVED,0,0,0,0.0,0,0,0,0,3
+synthetic-149,packaging,static-rag,ELIGIBLE,UNRESOLVED,0,0,0,2.0,2,2,0,0,1
+synthetic-149,packaging,retrieve-first,ELIGIBLE,ELIGIBLE,1,1,0,4.0,4,4,0,1,0
+synthetic-149,packaging,generic-clarification,ELIGIBLE,ELIGIBLE,1,1,0,6.0,2,0,2,0,0
+synthetic-149,packaging,evidencepath,ELIGIBLE,ELIGIBLE,1,1,0,3.0,3,3,0,0,0

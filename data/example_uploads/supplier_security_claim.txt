@@ -1,0 +1,3 @@
+CloudCo — supplier security statement
+
+Production database encryption at rest is enabled for all customer records, according to the supplier's security brochure.

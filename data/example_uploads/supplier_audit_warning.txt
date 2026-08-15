@@ -1,0 +1,4 @@
+Independent audit excerpt — training example only
+
+Production database encryption at rest is not enabled in the legacy processing cluster.
+The audit scope is limited to the legacy processing cluster.

@@ -1,0 +1,2 @@
+-r requirements.txt
+# OpenAI client is now part of the standard v3 installation.

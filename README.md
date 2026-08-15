@@ -1,594 +1,153 @@
-# GraphMind Studio
+# EvidencePath v0.3.3 — Research-Ready Language
 
-**Visual Hybrid Memory for LLMs Through Agent Orchestration**
+**Decision-aware information retrieval and evidence tracking for AI agents.** A Streamlit research workbench built in Python, with optional server-managed OpenAI claim extraction.
 
-GraphMind Studio is an interactive Streamlit workbench that converts evolving conversations with LLMs into evidence-linked episodic and semantic memory using knowledge graphs and vector memory. Instead of storing only recent chat turns, summaries, or vector chunks, the framework represents durable information as typed, evidence-linked relationships and makes the complete memory read/write workflow inspectable.
+**In plain language:** EvidencePath reads supplier documents, records what they say, and checks which missing facts could change a decision. It then suggests whether to read another passage, ask for clarification, or stop. Its example rules are fictional and are **not legal compliance advice**.
 
-A visitor starts from a seeded fictional scenario, continues the conversation, and watches the graph evolve. Each turn shows which memories grounded the answer, what new information was extracted, how entities were normalized, whether a candidate duplicated or conflicted with existing memory, and what was ultimately written to the graph.
+**Research focus:** Hybrid retrieval · Source-grounded claim extraction · Evidence provenance · Deterministic decision sufficiency · Agent evaluation.
 
-The application is designed to be:
+### Quick start in the UI
 
-- safe for public demonstration without exposing real personal history;
-- runnable locally in VS Code without Docker or Neo4j;
-- deployable on Streamlit Community Cloud;
-- usable with a local JSON store during development;
-- compatible with Supabase/PostgreSQL for durable cloud persistence;
-- understandable through visual orchestration, graph, evidence, and lifecycle views.
+1. Open **Case Workbench** and select **Sample documents**.
+2. Read the fictional supplier policy.
+3. Click **Check next passage** or **Run automatically**.
+4. Open **Evidence Explorer** to inspect supporting quotes, conflicts and what-if outcomes.
+5. Open **Compare methods** to inspect the controlled benchmark and error–coverage trade-off.
+6. Open **About the research** for technical design, reproducibility and limitations.
 
----
+### What V0.3.3 changes
 
-## 1. Why GraphMind?
-
-Simple LLM memory usually relies on:
-
-- recent messages placed back into the context window;
-- compressed conversation summaries;
-- vector embeddings of conversation chunks.
-
-Those mechanisms are useful for semantic recall, but they are weak at representing explicit relationships and changes such as:
-
-```text
-Dr. Lena Hoffmann → COMPLETED_MASTERS_AT → Technical University of Munich
-Dr. Lena Hoffmann → ENJOYS → Hiking
-ReasonScope → CONTAINS → Bias Comparison Engine
-Orchestrix → USES_EVALUATION_FROM → ReasonScope
-New preference → REFINES → Earlier preference
-```
-
-GraphMind combines semantic-style retrieval with graph-neighborhood relevance, typed memories, temporal metadata, conflict analysis, and user-controlled memory writing.
-
-The framework demonstrates:
-
-- symbolic consistency;
-- relationship and entity tracking;
-- changing preferences and constraints;
-- cross-turn and cross-session memory;
-- duplicate, refinement, and contradiction handling;
-- explicit evidence and confidence;
-- observable multi-agent orchestration.
+This is a **writing and presentation refinement** of V0.3.2. Everyday instructions remain simple, while retrieval settings, provenance, agent traces and evaluation labels use accurate engineering terminology with short explanations. The research page presents the actual pipeline and limitations. The only code-behaviour change fixes an existing uninitialised action-trace table on first load; retrieval, extraction, rules, benchmarks and saved results remain unchanged.
 
 ---
 
-## 2. Scenario design
 
-The app includes three seeded fictional scenarios. The **Overview page remains scenario-independent** and explains the framework itself. A compact dynamic scenario card appears in **Memory Lab** and **Graph Explorer**, so every scenario is introduced consistently where its context is actually needed.
+The public demo uses **fictional supplier-approval policies**, not the EU AI Act or real legal compliance standards. It does **not** certify suppliers, give legal advice, or independently verify source statements.
 
-### AI Researcher
+## What's in V3
 
-**Dr. Lena Hoffmann** is a clearly labeled synthetic persona. Her memory is intentionally balanced across education, research, hobbies, everyday preferences, and two imaginary research systems.
+- **01 / Case Workbench:** one document-to-decision flow for example files or PDF/TXT/MD uploads; automatic or step-by-step evidence acquisition, manual clarification, **opt-in review of remaining passages after the automatic agent stops**, visible agent trace.
+- **02 / Evidence Explorer:** evidence ledger with verbatim source passages, document/page provenance, conflicts, evidence graph, and **What Would Change This Decision?** counterfactual explorer.
+- **03 / Evaluation Studio:** the preserved V1 synthetic acquisition benchmark plus a **new V3 passage-noise stress test** comparing static, retrieve-first and decision-aware strategies (no LLM judge). Interactive re-runs, plots, case-level CSV export.
+- **04 / About the research:** research question, algorithms, evaluation assumptions, reproducibility and limitations.
+- **Exports:** Markdown assessment, JSON audit and evidence ledger CSV (can contain sensitive excerpts; inspect before sharing).
+- **LLM extraction:** Pydantic structured outputs + strict verbatim quotation checks. Optional neural retrieval and cross-encoder reranking. Offline pattern extraction remains available without any API key.
+- **PaperMind-aligned design:** white/navy/blue styling, spacious hero, author card, rounded panels.
 
-Educational background:
+> **What changed from V2?** V3 unifies the document and case workflows and moves OpenAI credentials entirely to server configuration. V2's option to paste a personal key into the interface has been removed. Prior deterministic policy engine, sample documents and V1 benchmark are retained.
 
-- bachelor's degree in Computer Science at the University of Stuttgart;
-- master's degree in Artificial Intelligence at the Technical University of Munich;
-- doctorate at the Technical University of Munich.
+## Run locally in VS Code (Windows PowerShell)
 
-Research profile:
-
-- LLM reasoning reliability;
-- reasoning bias;
-- parameter-efficient fine-tuning;
-- multi-agent orchestration;
-- modular system design;
-- reproducible evaluation.
-
-Everyday context:
-
-- hiking;
-- classical music;
-- science-fiction reading;
-- quiet cafés;
-- living in Munich;
-- learning Italian.
-
-The scenario contains only two imaginary projects:
-
-#### ReasonScope
-
-A fictional reasoning and bias evaluation system connected to explicit components:
-
-- Controlled Prompt Generator;
-- Reasoning Consistency Analyzer;
-- Bias Comparison Engine;
-- Evaluation Dashboard.
-
-#### Orchestrix
-
-A fictional multi-agent system-design platform connected to:
-
-- Orchestration Controller;
-- Planning Agent;
-- Retrieval Agent;
-- Hybrid Memory Layer;
-- Evaluation Agent;
-- Trace Monitor.
-
-The projects form a small connected ecosystem:
-
-```text
-Orchestrix → PROVIDES_TRACES_TO → ReasonScope
-ReasonScope → EVALUATES → Orchestrix
-Orchestrix → USES_EVALUATION_FROM → ReasonScope
-```
-
-Fine-tuning remains part of the researcher's expertise rather than becoming a third project. This keeps the graph realistic and readable.
-
-### Product Manager
-
-A fictional product workspace tracking:
-
-- customer priorities;
-- roadmap decisions;
-- stakeholder needs;
-- delivery constraints;
-- evolving requirements.
-
-### Travel Planner
-
-A fictional travel workspace tracking:
-
-- destination and transport preferences;
-- companions;
-- budget and pace;
-- changing plans and constraints.
-
----
-
-## 3. Core capabilities
-
-### Dynamic scenario conversations
-
-A scenario is the starting memory state, not a static graph. Visitors can continue with ordinary or domain-specific conversation. For example, the AI Researcher suggestions intentionally include simple messages:
-
-```text
-I want Orchestrix to keep evaluation independent from response generation.
-I enjoy amateur astronomy and photographing the night sky during weekend hikes.
-I have recently started learning Italian through films and music.
-```
-
-These turns demonstrate that long-term memory should represent a person or role as a multidimensional entity rather than only as a list of technical projects.
-
-### Isolated visitor workspaces
-
-Every Streamlit session receives a unique cloned workspace. Therefore:
-
-- the shared seed remains unchanged;
-- visitors do not overwrite one another's graph;
-- reset affects only the active visitor workspace;
-- a fresh isolated copy can be created from the sidebar.
-
-### Hybrid memory retrieval
-
-Before answering, the Retrieval Agent combines:
-
-- semantic-style lexical similarity in local mode;
-- direct entity relevance;
-- graph-neighborhood relevance;
-- memory-type relevance;
-- confidence and importance;
-- confirmation frequency.
-
-The Evaluation page compares:
-
-- vector-only ranking;
-- graph-only ranking;
-- hybrid ranking.
-
-The local lexical signal keeps the project lightweight. The Supabase schema includes a pgvector column and `match_memories` function for an embedding-backed extension.
-
-### Cross-turn memory extraction
-
-The Memory Extraction Agent receives:
-
-- the current user message;
-- a configurable recent conversation window;
-- the active scenario definition;
-- related memories retrieved for the answer.
-
-This supports reference resolution and avoids storing isolated phrases without conversational meaning.
-
-### Entity resolution
-
-Candidate entities are normalized before storage. Examples include:
-
-```text
-KG → Knowledge Graph
-RAG → Retrieval-Augmented Generation
-Streamlit Cloud → Streamlit Community Cloud
-```
-
-Known graph entities are reused when normalized names match.
-
-### Conflict and consolidation analysis
-
-Each candidate is classified as:
-
-- `new`;
-- `duplicate`;
-- `refinement`;
-- `complement`;
-- `contradiction`;
-- `supersedes`.
-
-Duplicates confirm existing memories. Contradictions and superseding candidates can be held for review rather than silently rewriting memory.
-
-### Memory governance
-
-GraphMind supports three policies.
-
-#### Automatic
-
-High-confidence, non-conflicting memories are written immediately. Ambiguous or conflicting candidates remain pending.
-
-#### Review
-
-Every candidate appears in an editable form. The visitor can revise the memory type, subject, relation, object, confidence, importance, and evidence before approval.
-
-#### Observe only
-
-The complete pipeline runs, but nothing is persisted. This is useful for safe demonstrations and evaluation.
-
-### Graph-delta visualization
-
-Every turn records:
-
-- new relationships;
-- confirmed or updated relationships;
-- pending review proposals;
-- ignored candidates;
-- entity-count changes.
-
-The Graph Explorer highlights newly written, updated, contradicted, pending, and answer-grounding relationships.
-
----
-
-## 4. Agent orchestration
-
-Each conversation turn follows an explicit read and write path:
-
-```text
-User request
-   ↓
-Intent Agent
-   ↓
-Hybrid Retrieval Agent
-   ↓
-Context Builder
-   ↓
-Response Composer
-   ↓
-Memory Extraction Agent
-   ↓
-Entity Resolution Agent
-   ↓
-Conflict and Consolidation Agent
-   ↓
-Memory Writer
-   ↓
-Graph Delta
-```
-
-The Agent Trace page displays structured inputs, decisions, evidence, status, and latency. It does not expose private hidden chain-of-thought.
-
----
-
-## 5. Interface
-
-### Overview
-
-Scenario-independent explanation of:
-
-- hybrid recall;
-- dynamic graph memory;
-- conflict-aware updates;
-- observable orchestration;
-- read, write, and control paths;
-- overall system metrics.
-
-The selected persona is deliberately not expanded on this page, keeping the landing experience concise.
-
-### Memory Lab
-
-Includes:
-
-- a compact dynamic scenario card;
-- scenario-appropriate suggested chats;
-- conversation history;
-- memories used for the answer;
-- memory policy explanation;
-- agent orchestration;
-- graph-delta summary;
-- editable review proposals.
-
-### Graph Explorer
-
-Includes the same compact scenario context and three progressively broader views:
-
-- **Recent updates** isolates relationships added or confirmed by the latest conversation turn and is the default view;
-- **Focused graph** shows a readable one-hop neighborhood around any selected person, project, component, preference, or concept, with optional second-hop context;
-- **Full graph** remains available for advanced inspection.
-
-Advanced type, status, and entity filters are placed inside a collapsed panel. The Evidence Inspector sorts relationships by `last_seen_at` and then `first_seen_at`, so the newest or most recently confirmed relationship appears first.
-
-### Agent Trace
-
-Shows structured agent outputs, final memory context, write decisions, and graph changes.
-
-### Evaluation
-
-Compares vector-only, graph-only, and hybrid retrieval scores for the same query.
-
-### Memory Manager
-
-Allows stored memories to be confirmed, archived, marked contradicted, and inspected with their evidence and metadata.
-
----
-
-## 6. Project structure
-
-```text
-graphmind_studio/
-├── app.py
-├── graphmind/
-│   ├── config.py
-│   ├── llm.py
-│   ├── models.py
-│   ├── orchestrator.py
-│   ├── scenarios.py
-│   ├── storage.py
-│   └── ui.py
-├── supabase/
-│   └── schema.sql
-├── tests/
-│   └── test_core.py
-├── .streamlit/
-│   ├── config.toml
-│   └── secrets.example.toml
-├── .env.example
-├── requirements.txt
-├── CHANGELOG.md
-└── README.md
-```
-
----
-
-## 7. Local setup in VS Code
-
-Use Python 3.12.
+Install Python 3.10–3.12, then extract the ZIP and open the `EvidencePath_v3` folder in VS Code.
 
 ```powershell
-py -3.12 -m venv venv
-.\venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-Copy-Item .env.example .env
-```
-
-Edit `.env`:
-
-```env
-OPENAI_API_KEY=your_openai_key
-OPENAI_MODEL=gpt-5.4-mini
-EMBEDDING_MODEL=text-embedding-3-small
-
-BACKEND_MODE=local
-SUPABASE_URL=
-SUPABASE_KEY=
-
-AUTO_MEMORY_THRESHOLD=0.80
-CONVERSATION_CONTEXT_TURNS=6
-```
-
-Run:
-
-```powershell
+py -3 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
 python -m streamlit run app.py
 ```
 
-The app can open without an OpenAI key. In that case it uses deterministic fallbacks for basic responses and common memory patterns.
+Open **http://localhost:8501**. Or double-click `start_windows.bat` (first launch installs dependencies).
 
----
+On Linux/macOS:
 
-## 8. Supabase setup
-
-Supabase is optional locally and recommended for durable cloud persistence.
-
-1. Create a Supabase project.
-2. Open the SQL Editor.
-3. Run `supabase/schema.sql`.
-4. Copy `.streamlit/secrets.example.toml` to `.streamlit/secrets.toml` for local testing, or add the values through Streamlit Cloud settings.
-5. Set `BACKEND_MODE` to `supabase`.
-
-Example:
-
-```toml
-OPENAI_API_KEY = "your-openai-key"
-OPENAI_MODEL = "gpt-5.4-mini"
-EMBEDDING_MODEL = "text-embedding-3-small"
-BACKEND_MODE = "supabase"
-SUPABASE_URL = "https://your-project.supabase.co"
-SUPABASE_KEY = "your-server-side-key"
-AUTO_MEMORY_THRESHOLD = "0.80"
-CONVERSATION_CONTEXT_TURNS = "6"
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m streamlit run app.py
 ```
 
-Do not commit `.env` or `.streamlit/secrets.toml`.
+**No API key is necessary to explore the entire offline demo.**
 
-### Security note
+### Enable OpenAI-powered extraction (one-time SERVER configuration)
 
-The supplied schema is suitable for a controlled technical demo using a server-side key stored in Streamlit secrets. Before storing sensitive data or adding public accounts, implement Supabase Auth, row-level-security policies, user-owned workspaces, retention controls, and deletion workflows.
+**Visitors never need to enter an API key.** The *app operator* must supply an OpenAI API key once, on the server or local computer, to enable Live OpenAI mode. Do not add real credentials to Python source or GitHub.
 
----
-
-## 9. Streamlit Community Cloud
-
-Recommended deployment configuration:
-
-- entry point: `app.py`;
-- Python: 3.12;
-- secrets added through App settings;
-- Supabase for durable persistence.
-
-No Docker, Neo4j server, ChromaDB service, or local database server is required.
-
-Local JSON mode is useful for development but should not be considered durable cloud storage because the Streamlit environment can restart.
-
----
-
-## 10. Suggested demonstration
-
-### Balanced dynamic-memory demonstration
-
-1. Select **AI Researcher**.
-2. Keep **Automatic** mode.
-3. Enter:
-
-```text
-I want Orchestrix to keep evaluation independent from response generation.
-```
-
-4. Inspect the project-level graph update and agent trace.
-5. Enter a science-related hobby:
-
-```text
-I enjoy amateur astronomy and photographing the night sky during weekend hikes.
-```
-
-6. Enter a non-technical hobby or learning preference:
-
-```text
-I have recently started learning Italian through films and music.
-```
-
-7. Open Graph Explorer. Recent updates isolates the newest link, while Focused graph lets you inspect its local neighborhood without loading the full graph.
-
-### Review-mode demonstration
-
-Switch to **Review** mode and repeat one of the statements. Edit the proposed subject, relation, or object before approval. This demonstrates user control over an evolving memory graph.
-
-### Observe-only demonstration
-
-1. Switch to **Observe only**.
-2. Add a potentially conflicting preference.
-3. Inspect the complete orchestration trace.
-4. Verify that the graph counts do not change.
-
----
-
-## 11. Memory data model
-
-A stored memory resembles:
-
-```json
-{
-  "id": "mem_123",
-  "workspace_id": "ai_researcher_v4_visitor",
-  "memory_type": "preference",
-  "subject": "Dr. Lena Hoffmann",
-  "relation": "PREFERS",
-  "object": "Amateur astronomy",
-  "evidence": "I enjoy amateur astronomy and photographing the night sky during weekend hikes.",
-  "confidence": 0.91,
-  "importance": 0.72,
-  "status": "active",
-  "mention_count": 1,
-  "first_seen_at": "...",
-  "last_seen_at": "..."
-}
-```
-
-Lifecycle states include:
-
-- candidate;
-- active;
-- confirmed;
-- superseded;
-- contradicted;
-- archived.
-
----
-
-## 12. Retrieval scoring
-
-The local hybrid policy uses an inspectable weighted combination of:
-
-```text
-semantic similarity
-+ graph proximity
-+ memory-type relevance
-+ importance
-+ confidence
-+ confirmation frequency
-```
-
-This is an MVP policy, not a theoretically optimal ranking model. A rigorous extension should evaluate labeled queries using Precision@k, Recall@k, MRR, relationship coverage, conflict-aware accuracy, and memory citation coverage.
-
----
-
-## 13. Tests
-
-Run:
+**Local option A: environment variable (PowerShell):**
 
 ```powershell
-python -m unittest discover -s tests -v
+$env:OPENAI_API_KEY = "YOUR_PRIVATE_KEY"
+python -m streamlit run app.py
 ```
 
-The test suite covers:
+**Local option B: Streamlit secrets (recommended):** copy `.streamlit/secrets.toml.example` to `.streamlit/secrets.toml`, replace placeholder with your own credential and restart Streamlit. The `secrets.toml` path is ignored by Git.
 
-- isolated scenario cloning;
-- automatic memory writing;
-- observe-only non-persistence;
-- review approval;
-- duplicate confirmation;
-- two-project component connectivity;
-- educational and hobby memories;
-- vector, graph, and hybrid retrieval.
+**Streamlit Community Cloud:** App → Settings → Secrets, add:
 
----
+```toml
+OPENAI_API_KEY = "YOUR_PRIVATE_KEY"
+```
 
-## 14. Recommended future improvements
+The credential stays server-side; do **not** paste it into the public application, README, commit or client UI. `EP_OPENAI_MODEL` can optionally select the deployed extraction model (default `gpt-4.1-mini`). The selected model must support structured output and be available to your account.
 
-### Real pgvector retrieval
+**Live analysis sends selected document passages to the OpenAI API**, so use only documents you have permission to process. Uploaded files are held in Streamlit session memory; this app does not persist their contents to its database. Review OpenAI's applicable API data policies and your organisation's requirements.
 
-Write embeddings for each memory and query Supabase through `match_memories`, then combine those results with graph-neighborhood traversal.
+### Best-effort live-demo safeguards
 
-### Visitor identity and row-level security
+- Maximum 6 upload files, 8 MB each, 40 PDF pages per file, and 300 text passages per session.
+- Only the currently inspected passage (up to 5,500 characters) is submitted to the API, with up to 1,200 output tokens, a 25-second timeout and no automatic API retries.
+- Per-session call limit **8** (adjust via `EP_PER_SESSION_CALL_LIMIT`).
+- Single-instance total **75 calls/UTC day** by default (`EP_DAILY_SERVER_CALL_LIMIT`). Stored in SQLite in the operating system temporary directory; **no uploaded text or secret is stored there**.
+- Counters intentionally charge attempted calls even on errors to avoid automatic expensive retries.
 
-Add Supabase Auth and user-owned workspaces for a true multi-user deployment.
+**Important:** session limits alone are not anti-abuse protection, and temporary local SQLite quotas can reset on container restart or be bypassed by multiple replicas. Do not publish an unlimited-use paid-API service without a durable external budget/rate-limiting gateway, authentication or spending controls, and abuse monitoring. These controls limit requests, not guarantee a monetary ceiling.
 
-### Temporal visualization
+### Optional stronger retrieval
 
-Add a dedicated timeline for first observation, confirmation, refinement, contradiction, supersession, and archival.
+The default hybrid is **BM25 + offline LSA**. It is *not a neural embedding*. For pretrained dense retrieval and reranking:
 
-### Evaluation benchmark
+```bash
+pip install -r requirements-neural.txt
+```
 
-Create labeled query sets covering direct recall, multi-hop retrieval, preference changes, contradiction resolution, entity aliases, and irrelevant-memory rejection.
+Select *Neural hybrid* or *Neural + cross-encoder reranker* in the sidebar. This downloads public model weights on first use; both options are slower. Neural retrieval uses MiniLM embeddings, and the reranking option adds a cross-encoder on the shortlist.
 
-### Cost and token telemetry
+### Testing and reproducibility
 
-Record model, latency, token usage, and estimated cost for each agent stage.
+```bash
+python -m pip install -r requirements-dev.txt
+python -m pytest -q
+python -m evidencepath.benchmark --n 150 --seed 17 --output results
+python -m evidencepath.stress_benchmark --n 90 --seed 23 --budget 5 --output results
+```
 
-### Downloadable experiment reports
+`results/benchmark_*` are the preserved **V1 synthetic oracle** results. `results/v3_stress_*` are V3 **controlled noisy-passage variants of the three curated case templates**. The latter is not a held-out independent benchmark. Neither tests real-world compliance or validates LLM extraction on third-party documents.
 
-Export the query, retrieved memories, graph paths, conflict decisions, graph delta, and final response as JSON or CSV.
+**Stress comparison dimensions:** fraction of all cases correctly resolved, incorrect-decision rate over all cases, decision coverage, mean passage inspections and whether contradictions were surfaced. Static RAG has a fixed two-passage cap; other strategies share a maximum inspection budget. No hidden supplier answers are exposed to the decision agent. An oracle is used only for scoring.
 
----
+### Architectural modules
 
-## 15. Project summary
+```text
+app.py                        Unified four-tab Streamlit UI
+ evidencepath/
+   document_lab.py            PDF/text chunking, retrieval, claim extraction and ledger
+   counterfactual.py          Exact what-if decision outcomes
+   runtime.py                 Server credentials + best-effort quota
+   reporting.py               Markdown/JSON reports
+   stress_benchmark.py        V3 seeded text-perturbation benchmark
+   agent.py                   Preserved V1 synthetic agent
+   logic.py                   Exact Boolean decision sufficiency
+   retrieval.py               Offline BM25/LSA ranking
+   models.py, cases.py        Typed rule model and fictional cases
+ results/                     Reproducible experiment outputs
+ tests/                       Unit and integration tests
+```
 
-> GraphMind Studio is a cloud-deployable hybrid memory and orchestration framework that converts evolving conversations into evidence-linked knowledge graphs, combines semantic and relationship-aware retrieval, detects duplicate and conflicting memories, and visualizes agent decisions and graph updates in Streamlit.
+## Research limitations and design integrity
 
-Technical highlights:
+- Source-anchored quotation is **not proof of factual correctness**. Contradictory documents are never resolved just by majority vote.
+- The core policy rules are **hand-authored Boolean simplifications**. AI does not automatically derive trustworthy legal policy logic from arbitrary uploads.
+- The exact rule evaluator may stop with a provisional decision before every uninspected contradictory passage has been found; best-effort cross-checking does not guarantee contradiction completeness. **Use the Continue evidence review control** in Case Workbench to inspect remaining passages without resetting. This does not affect automatic acquisition benchmark logic.
+- The offline extractor uses **narrow patterns** and may miss paraphrases, negation or multilingual source statements. No universal document understanding or OCR is claimed.
+- The V3 stress suite is a synthetic engineering diagnostic, not an independent scientific benchmark; surprising failure cases are valuable and displayed.
+- The value-of-information acquisition policy remains heuristic, not a learned optimal planner. Do not claim scientific novelty or superiority without broader experiments.
+- This tool does not provide real compliance determinations, professional legal advice, or security certification.
 
-- Multi-agent pipeline for intent planning, hybrid retrieval, response composition, extraction, entity resolution, conflict detection, and controlled graph updates.
-- Automatic, review, and observe-only memory policies.
-- Isolated role-based workspaces suitable for public demonstrations.
-- Balanced fictional AI Researcher data covering education, hobbies, preferences, research interests, and two connected imaginary projects.
-- Interactive graph, component, ecosystem, evidence, trace, lifecycle, and retrieval-comparison views.
-- Pluggable local JSON and Supabase/PostgreSQL storage.
+**Licence:** MIT (`LICENSE`).
 
----
+## v0.3.1 patch: optional post-decision evidence review
 
-## 16. Intended use
+After the automatic agent determines an outcome, the Case Workbench now displays how many passages remain uninspected and offers an expanded **Continue evidence review** section. You can choose any remaining passage and inspect it without resetting the current evidence session. If a new source contradicts an earlier extracted fact, the evidence ledger and policy result are recomputed; a clarification may become necessary.
 
-GraphMind Studio is intended for education, experimentation, and technical demonstration. It should not be used as-is to store sensitive personal data or support high-stakes decisions. Add an appropriate repository license before public release.
+The automatic `next_action` planner still stops at decision sufficiency; manual source auditing is a separate action, and is logged as `User-requested audit`. Each OpenAI-powered inspection still consumes one permitted live call and is subject to configured quotas. A full source audit does not independently verify supplier claims.
