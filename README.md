@@ -1,4 +1,4 @@
-# EvidencePath v0.3.3 — Research-Ready Language
+# EvidencePath version-1
 
 **Decision-aware information retrieval and evidence tracking for AI agents.** A Streamlit research workbench built in Python, with optional server-managed OpenAI claim extraction.
 
